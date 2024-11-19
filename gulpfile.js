@@ -1,17 +1,19 @@
 const gulp = require('gulp');
+const concat = require('gulp-concat');
 const sourcemaps = require('gulp-sourcemaps');
 const less = require('gulp-less');
 
 const browserSync = require('browser-sync').create();
 
 const lessFiles = [
-    './src/styles/test.less'
+    './src/styles/login.less'
 ]
 
 function styles() {
     return gulp.src(lessFiles)
     .pipe(sourcemaps.init())
     .pipe(less())
+    .pipe(concat('style.css'))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./build/style'))
     .pipe(browserSync.stream());
