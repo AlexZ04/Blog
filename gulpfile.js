@@ -8,6 +8,7 @@ const browserSync = require('browser-sync').create();
 const lessFiles = [
     './src/styles/pages.less',
     './src/styles/header.less',
+    './src/styles/footer.less',
     './src/styles/login.less',
 ]
 

@@ -1,5 +1,6 @@
 @shadow-color: rgba(184, 191, 196, 0.2);
 @header-margin: 30px;
+@standart-text-size: 0.9rem;
 
 .header-border {
     box-shadow: 0 0 20px 7px @shadow-color;
@@ -20,7 +21,6 @@ header {
     .header-border();
 
     justify-content: space-between;
-    align-items: center;
     align-items: baseline;
 
     .header-left-part {
@@ -39,7 +39,7 @@ header {
     }
 
     a {
-        font-size: 0.9rem;
+        font-size: @standart-text-size;
         line-height: 1;
     }
 }
