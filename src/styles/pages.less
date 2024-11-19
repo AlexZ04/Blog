@@ -1,11 +1,23 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
+@header-height: 50px;
+@footer-height: 80px;
+
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
-    
+
     margin: 0;
+
+    background-color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - @footer-height - @header-height);
 }
