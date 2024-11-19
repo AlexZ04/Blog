@@ -9,7 +9,8 @@ const lessFiles = [
     './src/styles/pages.less',
     './src/styles/header.less',
     './src/styles/footer.less',
-    './src/styles/login.less',
+    './src/styles/passwordControl.less',
+    './src/styles/login.less'
 ]
 
 function styles() {
@@ -31,6 +32,7 @@ function watch() {
     gulp.watch('./src/styles/**/*.less', styles);
     gulp.watch('./*.less').on('change', browserSync.reload);
     gulp.watch('./**/*.html').on('change', browserSync.reload);
+    gulp.watch('./**/*.js').on('change', browserSync.reload);
 }
 
 gulp.task('styles', styles);

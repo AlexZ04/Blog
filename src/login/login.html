@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
+    <script type="module" src="../js/passwordControl.js" defer></script>
+
     <link rel="stylesheet" href="../../build/style/style.css">
 </head>
 <body>
@@ -42,12 +44,15 @@
 
             <div class="password-login-cont">
                 <label for="password_login">Пароль</label>
-                <input type="password" id="password_login" autocomplete="off">
+                <div class="password-inp">
+                    <input type="password" id="password_login" autocomplete="off">
+                    <a href="#" class="password-control"></a>
+                </div>
             </div>
 
             <div class="login-buttons">
-                <button id="enter_login_btn">Войти</button>
-                <button id="regiser_login_btn">Зарегистрироваться</button>
+                <button class="enter-login-btn" id="enter_login_btn">Войти</button>
+                <button class="register-login-btn" id="register_login_btn">Зарегистрироваться</button>
             </div>
         </div>
     </div>

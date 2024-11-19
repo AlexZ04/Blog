@@ -1,6 +1,65 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+@margin-side: 20px;
+@border-rad: 7px;
+@field-height: 5vh;
+
+.log-buttons {
+    color: white;
+    border: 0px;
+    border-radius: @border-rad;
+    transition: 0.3s linear;
+}
+
 .login-form-container {
-    border: 1px solid black;
+    box-shadow: 4px 1px 13px 3px rgba(34, 60, 80, 0.2);
+    border-radius: @border-rad;
 
     width: 30vw;
-    height: 40vh;
+    
+    h2 {
+        margin: 15px @margin-side 0;
+    }
+
+    .email-login-cont, .password-login-cont, .login-buttons {
+        margin: 10px @margin-side;
+    }
+
+    .login-buttons {
+        display: grid;
+
+        button {
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 5px;
+            height: @field-height;
+            width: 100%;
+        }
+    }
+}
+
+.email-login-cont, .password-login-cont {
+    display: grid;
+
+    input {
+        height: @field-height;
+        border-radius: @border-rad;
+        border: 1px solid rgb(199, 191, 191);
+        padding: 0 1rem;
+        width: 100%;
+    }
+}
+
+.enter-login-btn {
+    background-color: rgb(13 110 253);
+    margin-top: 5px;
+    .log-buttons();
+}
+
+.register-login-btn {
+    background-color: rgb(108 117 125);
+    .log-buttons();
+}
+
+.password-inp {
+    position: relative;
 }
