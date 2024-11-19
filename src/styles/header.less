@@ -1,0 +1,39 @@
+@shadow-color: rgba(184, 191, 196, 0.2);
+@header-margin: 30px;
+
+.header-border {
+    box-shadow: 0 0 20px 7px @shadow-color;
+    margin-bottom: 50px;
+}
+
+.inline-elements {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+header {
+    display: flex;
+
+    height: 50px;
+    width: 100%;
+    .header-border();
+
+    justify-content: space-between;
+    align-items: center;
+
+    .header-left-part {
+        .inline-elements();
+        margin-left: @header-margin;
+    }
+
+    .header-right-part {
+        .inline-elements();
+        margin-right: @header-margin;
+    }
+}
+
+
+.hidden {
+    display: none;
+}

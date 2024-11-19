@@ -6,7 +6,9 @@ const less = require('gulp-less');
 const browserSync = require('browser-sync').create();
 
 const lessFiles = [
-    './src/styles/login.less'
+    './src/styles/pages.less',
+    './src/styles/header.less',
+    './src/styles/login.less',
 ]
 
 function styles() {
@@ -27,7 +29,7 @@ function watch() {
     });
     gulp.watch('./src/styles/**/*.less', styles);
     gulp.watch('./*.less').on('change', browserSync.reload);
-    gulp.watch('./*.html').on('change', browserSync.reload);
+    gulp.watch('./**/*.html').on('change', browserSync.reload);
 }
 
 gulp.task('styles', styles);
