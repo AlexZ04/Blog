@@ -38,6 +38,26 @@
     }
 }
 
+.gender-select {
+    appearance: none;
+}
+
+.arrow-cont {
+    position: relative;
+
+    .arrow {
+        pointer-events: none;
+        position: absolute;
+        top: 0.6vh;
+        right: @images-right-margin;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        background: url(/src/img/arrow-down.png) 0 0 no-repeat;
+        background-size: cover;
+    }
+}
+
 .email {
     a {
         margin-top: 3px;
