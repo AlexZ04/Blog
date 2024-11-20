@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
+    
+    <script type="module" src="/src/js/navigation.js" defer></script>
+
+    <link rel="stylesheet" href="./build/style/style.css">
 </head>
 <body>
-    <h1>Это главная страница</h1>
+    <header class="unauthorized-header">
+        <div class="header-left-part">
+            <p>Блог №415</p>
+            <a id="main_page">Главная</a>
+        </div>
+        
+        <div class="header-right-part">
+            <a id="login">Вход</a>
+        </div>
+    </header>
 
-    <form action="./src/login/login.html" target="_blank">
-        <button>Переход по ссылке</button>
-    </form>
+    <header class="loggined-header hidden">
+        <div class="header-left-part">
+            <p>Блог №415</p>
+            <a>Главная</a>
+            <a>Написать пост</a>
+        </div>
+        
+        <div class="header-right-part">
+            <a>Пока так</a>
+        </div>
+    </header>
+
+    <footer>
+        <p>@2024 – Блог №415</p>
+    </footer>
 </body>
 </html>

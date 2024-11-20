@@ -10,7 +10,8 @@ const lessFiles = [
     './src/styles/header.less',
     './src/styles/footer.less',
     './src/styles/passwordControl.less',
-    './src/styles/login.less'
+    './src/styles/login.less',
+    './src/styles/registration.less'
 ]
 
 function styles() {

@@ -1,8 +1,10 @@
 {
   "dependencies": {
     "browser-sync": "^3.0.3",
+    "express": "^4.21.1",
     "gulp": "^5.0.0",
-    "gulp-concat": "^2.6.1"
+    "gulp-concat": "^2.6.1",
+    "gulp-file-include": "^2.3.0"
   },
   "name": "blog",
   "version": "1.0.0",

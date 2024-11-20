@@ -1,0 +1,35 @@
+@import "./variables.less";
+
+.register-form-container {
+    box-shadow: @auth-shadow;
+    border-radius: @border-rad;
+
+    width: 30vw;
+    
+    h2 {
+        margin: 15px @margin-side 0;
+    }
+
+    .login-cont, .register-buttons {
+        margin: 10px @margin-side;
+    }
+
+    .register-buttons {
+        display: grid;
+
+        button {
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 5px;
+            height: @field-height;
+            width: 100%;
+        }
+    }
+}
+
+.blue {
+    background-color: @blue-button;
+}
+
+.gray {
+    background-color: @gray-button;
+}

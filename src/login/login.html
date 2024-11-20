@@ -6,6 +6,7 @@
     <title>Login</title>
 
     <script type="module" src="../js/passwordControl.js" defer></script>
+    <script type="module" src="/src/js/navigation.js" defer></script>
 
     <link rel="stylesheet" href="../../build/style/style.css">
 </head>
@@ -13,11 +14,11 @@
     <header class="unauthorized-header">
         <div class="header-left-part">
             <p>Блог №415</p>
-            <a>Главная</a>
+            <a id="main_page">Главная</a>
         </div>
         
         <div class="header-right-part">
-            <a>Вход</a>
+            <a id="login">Вход</a>
         </div>
     </header>
 
@@ -37,12 +38,12 @@
         <div class="login-form-container">
             <h2>Вход</h2>
             
-            <div class="email-login-cont">
+            <div class="login-cont">
                 <label for="email_login">Email</label>
                 <input type="email" id="email_login" placeholder="name@example.com" autocomplete="off">
             </div>
 
-            <div class="password-login-cont">
+            <div class="login-cont">
                 <label for="password_login">Пароль</label>
                 <div class="password-inp">
                     <input type="password" id="password_login" autocomplete="off">
@@ -51,8 +52,8 @@
             </div>
 
             <div class="login-buttons">
-                <button class="enter-login-btn" id="enter_login_btn">Войти</button>
-                <button class="register-login-btn" id="register_login_btn">Зарегистрироваться</button>
+                <button class="enter-login-btn blue" id="enter_login_btn">Войти</button>
+                <button class="register-btn gray" id="register_login_btn">Зарегистрироваться</button>
             </div>
         </div>
     </div>

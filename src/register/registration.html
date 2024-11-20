@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <script type="module" src="../js/passwordControl.js" defer></script>
+    <script type="module" src="/src/js/navigation.js" defer></script>
+
+    <link rel="stylesheet" href="../../build/style/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="register-form-container">
+            <h2>Регистрация</h2>
+            
+            <div class="name-register-cont">
+                <label for="name_reg">ФИО</label>
+                <input type="text" id="name_reg" placeholder="Иванов Иван Иванович" autocomplete="off">
+            </div>
+
+            <div class="date-register-cont">
+                <label for="date_reg">Дата рождения</label>
+                <input type="date" id="date_reg">
+            </div>
+
+            <div class="gender-register-cont">
+                <label for="gender_reg">Пол</label>
+                <select>
+                    <option>Мужской</option>
+                    <option>Женский</option>
+                </select>
+            </div>
+
+            <div class="phone-register-cont">
+                <label for="phone_reg">Телефон</label>
+                <input type="text" id="phone_reg" placeholder="+7 (xxx) xxx-xx-xx" autocomplete="off">
+            </div>
+
+            <div class="email-register-cont">
+                <label for="email_reg">Email</label>
+                <input type="email" id="email_reg" placeholder="name@example.com" autocomplete="off">
+            </div>
+
+            <div class="password-register-cont">
+                <label for="password_reg">Пароль</label>
+                <div class="password-inp">
+                    <input type="password" id="password_login" autocomplete="off">
+                    <a href="#" class="password-control"></a>
+                </div>
+            </div>
+
+            <div class="register-buttons">
+                <button class="register-btn blue" id="register_user">Зарегистрироваться</button>
+            </div>
+    </div>
+</body>
+</html>
