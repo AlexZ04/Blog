@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
 
+    <script type="module" src="../js/loadContent.js" defer></script>
     <script type="module" src="../js/passwordControl.js" defer></script>
-    <script type="module" src="/src/js/navigation.js" defer></script>
+    <script type="module" src="../js/navigation.js" defer></script>
 
     <link rel="stylesheet" href="../../build/style/style.css">
 </head>
 <body>
+    <header id="header"></header>
+
     <div class="container">
         <div class="register-form-container">
             <h2>Регистрация</h2>
@@ -38,16 +41,17 @@
                 <input type="text" id="phone_reg" placeholder="+7 (xxx) xxx-xx-xx" autocomplete="off">
             </div>
 
-            <div class="register-cont">
+            <div class="register-cont email">
                 <label for="email_reg">Email</label>
                 <input type="email" id="email_reg" placeholder="name@example.com" autocomplete="off">
+                <a>Email будет использоваться для входа в систему</a>
             </div>
 
             <div class="register-cont">
                 <label for="password_login">Пароль</label>
                 <div class="password-inp">
                     <input type="password" id="password_login" autocomplete="off">
-                    <a href="#" class="password-control"></a>
+                    <a href="#" class="password-control reg"></a>
                 </div>
             </div>
 
@@ -62,5 +66,7 @@
                 <button class="register-btn blue" id="register_user">Зарегистрироваться</button>
             </div>
     </div>
+
+    <footer id="footer"></footer>
 </body>
 </html>

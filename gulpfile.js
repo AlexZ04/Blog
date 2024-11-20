@@ -39,4 +39,4 @@ function watch() {
 gulp.task('styles', styles);
 gulp.task('watch', watch);
 
-gulp.task('dev', gulp.series('styles','watch'));
+gulp.task('dev', gulp.series('styles', 'watch'));
