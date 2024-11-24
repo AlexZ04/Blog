@@ -12,7 +12,7 @@ loginButton.addEventListener('click', async () => {
 
     if (res) {
         localStorage.setItem("access_token", res);
+        localStorage.setItem("email", inpEmail);
         window.location.href = '/index.html';
     }
 });
-

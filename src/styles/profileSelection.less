@@ -1,0 +1,45 @@
+@import "./variables.less";
+
+.profile-select {
+    width: 15px;
+	height: 15px;
+    background: url(/src/img/profile-arrow-down.png) 0 0 no-repeat;
+    background-size: cover;
+    position: relative;
+    left: -10px;
+
+    cursor: pointer;
+}
+
+.profile-select-button-cont {
+    position: relative;
+    left: -40px;
+    top: 26px;
+    width: 81px;
+
+    border: 1px solid @gray-button;
+    border-radius: @border-rad;
+
+    :first-child {
+        border-top-left-radius: @border-rad;
+        border-top-right-radius: @border-rad;
+    }
+
+    :last-child {
+        border-bottom-left-radius: @border-rad;
+        border-bottom-right-radius: @border-rad;
+    }
+
+    button {
+        width: 80px;
+        height: 25px;
+        background-color: white;
+        border: none;
+        
+        transition: 0.5s ease-in;
+    }
+
+    button:hover {
+        background-color: @hover-button;
+    }
+}

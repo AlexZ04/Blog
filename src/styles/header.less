@@ -11,6 +11,11 @@
     align-items: center;
 }
 
+.small-font {
+    font-size: @standart-text-size;
+    line-height: 1;
+}
+
 header {
     display: flex;
 
@@ -29,6 +34,10 @@ header {
     .header-right-part {
         .inline-elements();
         margin-right: @header-margin;
+
+        p {
+            .small-font();
+        }
     }
 
     p {
@@ -37,8 +46,7 @@ header {
     }
 
     a {
-        font-size: @standart-text-size;
-        line-height: 1;
+        .small-font();
     }
 
     a:hover {

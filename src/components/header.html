@@ -1,7 +1,7 @@
 <header class="unauthorized-header">
     <div class="header-left-part">
         <p>Блог №415</p>
-        <a id="main_page">Главная</a>
+        <a class="main_page">Главная</a>
     </div>
     
     <div class="header-right-part">
@@ -9,14 +9,21 @@
     </div>
 </header>
 
-<header class="loggined-header hidden">
+<header class="loggined-header">
     <div class="header-left-part">
         <p>Блог №415</p>
-        <a id="main_page">Главная</a>
+        <a class="main_page">Главная</a>
         <a>Написать пост</a>
     </div>
     
     <div class="header-right-part">
-        <a>Пока так</a>
+        <p id="header_name"></p>
+ 
+        <div class="profile-select" id="profile_select">
+            <div class="profile-select-button-cont hidden">
+                <button id="profile_nav_btn">Профиль</button>
+                <button id="exit_btn">Выход</button>
+            </div>
+        </div>
     </div>
 </header>
