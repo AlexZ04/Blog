@@ -1,4 +1,5 @@
 import * as connection from "./connection/usersConnection.js";
+import * as constants from "./constants.js";
 
 var path = '/src/components';
 
@@ -79,11 +80,26 @@ function addSelectionMenu() {
     });
 }
 
+
 async function checkToken() {
     var res = await connection.GetProfile();
 
+    if (!res) checkPage();
+
     if (!res && localStorage.getItem("access_token")) {
+        
         connection.resetToken();
         renderHeader();
     }
 }
+
+
+function checkPage() {
+    constants.AUTH_PAGES.forEach(element => {
+        if (window.location.href.toString().includes(element)) {
+            window.location.href = "/src/login/login.html";
+            return;
+        }
+    });   
+}
+

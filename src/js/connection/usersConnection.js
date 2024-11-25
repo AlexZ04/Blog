@@ -1,3 +1,5 @@
+import { RESULTS } from "../constants.js";
+
 export async function Register(fullName, password, email, birthDate, gender, phoneNumber) {
     var url = "https://blog.kreosoft.space/api/account/register";
 
@@ -94,6 +96,34 @@ export async function GetProfile() {
         }
         else {
             alert(response.status);
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+export async function EditProfile(email, fullName, birthDate, gender, phoneNumber) {
+    var url = "https://blog.kreosoft.space/api/account/profile";
+
+    try {
+        let response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            },
+            body: JSON.stringify({email, fullName, birthDate, gender, phoneNumber})
+        });
+
+        if (response.ok) {
+            return RESULTS.SUCCESS;
+        }
+        else if (response.status === 401) {
+            resetToken();
+        }
+        else {
+            return RESULTS.ERROR;
         }
     }
     catch (e) {
