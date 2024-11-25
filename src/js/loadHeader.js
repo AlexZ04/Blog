@@ -50,12 +50,17 @@ function renderHeader() {
 function addSelectionMenu() {
     const profileSelectArrow = document.getElementById('profile_select');
     const profileSelectionBtn = document.querySelector('.profile-select-button-cont');
+
+    const headerRightPart = document.querySelector(".selection-menu");
     
-    profileSelectArrow.addEventListener('click', () => {
+    headerRightPart.addEventListener('mouseover', () => {
         if (profileSelectionBtn.classList.contains('hidden')) {
             profileSelectionBtn.classList.remove('hidden');
         }
-        else {
+    });
+
+    headerRightPart.addEventListener('mouseleave', () => {
+        if (!profileSelectionBtn.classList.contains('hidden')) {
             profileSelectionBtn.classList.add('hidden');
         }
     });
