@@ -1,5 +1,7 @@
 @import "./variables.less";
 
+@border-selection: 1px solid @gray-button;
+
 .profile-select {
     width: 15px;
 	height: 15px;
@@ -17,15 +19,20 @@
     top: 26px;
     width: 81px;
 
-    border: 1px solid @gray-button;
     border-radius: @border-rad;
 
     :first-child {
+        border-left: @border-selection;
+        border-top: @border-selection;
+        border-right: @border-selection;
         border-top-left-radius: @border-rad;
         border-top-right-radius: @border-rad;
     }
 
     :last-child {
+        border-left: @border-selection;
+        border-bottom: @border-selection;
+        border-right: @border-selection;
         border-bottom-left-radius: @border-rad;
         border-bottom-right-radius: @border-rad;
     }
@@ -37,6 +44,8 @@
         border: none;
         
         transition: 0.5s ease-in;
+
+        cursor: pointer;
     }
 
     button:hover {

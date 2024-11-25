@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             renderHeader();
             addSelectionMenu();
+            checkToken();
         });
 
     fetch(`${path}/footer.html`)
@@ -72,4 +73,13 @@ function addSelectionMenu() {
         connection.Logout();
         renderHeader();
     });
+}
+
+async function checkToken() {
+    var res = await connection.GetProfile();
+
+    if (!res && localStorage.getItem("access_token")) {
+        connection.resetToken();
+        renderHeader();
+    }
 }

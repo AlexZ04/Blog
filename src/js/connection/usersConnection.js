@@ -73,6 +73,34 @@ export async function Logout() {
     }
 }
 
+export async function GetProfile() {
+    var url = "https://blog.kreosoft.space/api/account/profile";
+
+    try {
+        let response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        }
+        );
+
+        if (response.ok) {
+            var userInfo = await response.json();
+
+            return userInfo;
+        }
+        else if (response.status === 401) {
+            return;
+        }
+        else {
+            alert(response.status);
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 export function resetToken() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("name");
