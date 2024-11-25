@@ -69,6 +69,10 @@ function addSelectionMenu() {
     const profileBtn = document.getElementById('profile_nav_btn');
     const exitBtn = document.getElementById('exit_btn');
 
+    profileBtn.addEventListener('click', () => {
+        window.location.href = "/src/profile/profile.html";
+    });
+
     exitBtn.addEventListener('click', () => {
         connection.Logout();
         renderHeader();
