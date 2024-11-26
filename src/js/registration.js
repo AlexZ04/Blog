@@ -30,6 +30,11 @@ regBtn.addEventListener('click', async () => {
     var inpPas = password.value;
     var inpPasRepeat = passwordAgain.value; 
 
+    if (!validation.validPhone(phone.value) && phone.value) {
+        alert("Номер не подходит!");
+        return;
+    }
+
     if (inpPas !== inpPasRepeat) {
         alert("Повторите пароль!");
         return;
