@@ -6,7 +6,6 @@ const less = require('gulp-less');
 const browserSync = require('browser-sync').create();
 
 const lessFiles = [
-    './src/styles/pages.less',
     './src/styles/header.less',
     './src/styles/footer.less',
     './src/styles/passwordControl.less',
@@ -14,6 +13,7 @@ const lessFiles = [
     './src/styles/registration.less',
     './src/styles/profileSelection.less',
     './src/styles/profile.less',
+    './src/styles/pages.less',
 ]
 
 function styles() {
