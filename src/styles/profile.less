@@ -1,16 +1,48 @@
 @import "./variables.less";
 
+@profile-space: 10px;
+
 .profile-global-container {
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 2 * @profile-space;
 
-    width: 60dvw;
+    width: @profile-info-width;
 
     border-radius: 2px;
 
     box-shadow: @auth-shadow;
 }
 
+.profile-info-container {
+    padding-top: @profile-space;
+
+    button {
+        position: relative;
+        width: 85px;
+        height: 30px;
+        
+        margin-bottom: @profile-space;
+
+        border-radius: @border-rad - 3px;
+    }
+}
+
 .profile-cont {
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    margin: @profile-space;
+
+    // label {
+    //     font-size: small;
+    // }
+
+    input, select {
+        height: @field-height - 1vh;
+        border-radius: @border-rad - 3px;
+        border: 1px solid rgb(199, 191, 191);
+        padding: 0 1rem;
+        width: 80%;
+    }
 }
