@@ -21,3 +21,25 @@ body {
     align-items: center;
     height: calc(100vh - @footer-height - @header-height);
 }
+
+.buttons-style {
+    color: white;
+    border-radius: @border-rad;
+    border: none;
+    transition: 0.3s linear;
+}
+
+.blue {
+    background-color: @blue-button;
+    .buttons-style();
+}
+
+.gray {
+    background-color: @gray-button;
+    color: white;
+    .buttons-style();
+}
+
+.blue:hover, .gray:hover {
+    opacity: 0.75;
+}

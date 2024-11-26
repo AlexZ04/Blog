@@ -13,6 +13,7 @@ const lessFiles = [
     './src/styles/login.less',
     './src/styles/registration.less',
     './src/styles/profileSelection.less',
+    './src/styles/profile.less',
 ]
 
 function styles() {

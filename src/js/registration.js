@@ -1,4 +1,5 @@
 import * as usersConnection from "./connection/usersConnection.js";
+import { GENDERS } from "./constants.js";
 
 const regBtn = document.getElementById('register_user');
 
@@ -13,7 +14,7 @@ const passwordAgain = document.getElementById('password_login_repeat');
 regBtn.addEventListener('click', async () => {
     var inpName = name.value;
     var inpBirth = birthDate.value;
-    var inpGender = gender.value === "Мужской" ? "Male" : "Female";
+    var inpGender = gender.value === "Мужской" ? GENDERS.MALE : GENDERS.FEMALE;
     var inpPhone = phone.value;
     var inpEmail = email.value;
     var inpPas = password.value;
@@ -24,7 +25,7 @@ regBtn.addEventListener('click', async () => {
         return;
     }
 
-    var res = await usersConnection.Register(inpEmail, inpPas, inpEmail, inpBirth, inpGender, inpPhone);
+    var res = await usersConnection.Register(inpName, inpPas, inpEmail, inpBirth, inpGender, inpPhone);
 
     if (res) {
         localStorage.setItem("access_token", res);

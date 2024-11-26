@@ -6,14 +6,58 @@
     <title>Profile</title>
 
     <script type="module" src="../js/loadHeader.js" defer></script>
+    <script type="module" src="../js/profileEdit.js" defer></script>
 
     <link rel="stylesheet" href="../../build/style/style.css">
 </head>
 <body>
     <header id="header"></header>
 
-    <div class="profile-container">
-        
+    <div class="profile-global-container">
+
+        <div class="profile-info-container">
+            <div class="profile-cont">
+                <label for="edit_email">Email</label>
+                <input type="text" id="edit_email">
+            </div>
+
+            <div class="profile-cont">
+                <label for="edit_name">ФИО</label>
+                <input type="text" id="edit_name">
+            </div>
+
+            <div class="profile-cont">
+                <label for="edit_phone">Номер телефона</label>
+                <input type="text" id="edit_phone">
+            </div>
+
+            <div class="profile-cont">
+                <label for="edit_gender">Пол</label>
+
+                <select id="edit_gender" class="gender-select-a">
+                    <option>Мужской</option>
+                    <option>Женский</option>
+                </select>
+                
+                <!-- <div class="arrow-cont-a">
+                    <select id="edit_gender" class="gender-select-a">
+                        <option>Мужской</option>
+                        <option>Женский</option>
+                    </select>
+                    <a href="#" class="arrow"></a>
+                </div> -->
+
+            </div>
+
+            <div class="profile-cont">
+                <label for="edit_date">Дата рождения</label>
+                <input type="date" id="edit_date">
+            </div>
+
+            <button class="save-edit-prof-btn blue" id="save_edit_profile">Сохранить</button>
+
+        </div>
+
     </div>
 
     <footer id="footer"></footer>
