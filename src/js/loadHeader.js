@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = '/src/login/login.html';
             });
 
+            document.getElementById("authors_nav").addEventListener('click', () => {
+                window.location.href = '/src/authors/authors.html';
+            });
+
+            document.getElementById("groups_nav").addEventListener('click', () => {
+                window.location.href = '/src/groups/groups.html';
+            });
+
             renderHeader();
             addSelectionMenu();
             checkToken();

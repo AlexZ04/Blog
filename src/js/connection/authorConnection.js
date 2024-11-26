@@ -1,5 +1,3 @@
-import { resetToken } from "./usersConnection";
-
 export async function GetAuthorList() {
     var url = "https://blog.kreosoft.space/api/author/list";
 
@@ -10,9 +8,6 @@ export async function GetAuthorList() {
             let authorJson = await response.json();
 
             return authorJson;
-        }
-        else if (response.status === 401) {
-            resetToken();
         }
         else {
             alert(response.status);

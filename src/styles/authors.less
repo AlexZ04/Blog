@@ -1,0 +1,86 @@
+@import "./variables.less";
+
+.authors-cont {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 10px;
+
+    height: 100dvh - @header-height - @footer-height;
+}
+
+.author {
+    width: 80dvw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid @gray-button;
+}
+
+.author-left-part {
+    display: flex;
+    align-items: center;
+}
+
+.author-icon {
+    height: 50px;
+    width: 50px;
+    background-color: red;
+    border-radius: 50%;
+    border: 0.1px solid @gray-button;
+
+    position: relative;
+    
+    background-size: cover;
+}
+
+.male-image {
+    .author-icon();
+    background: url(/src/img/man.png) 0 0 no-repeat;
+}
+
+.female-image {
+    .author-icon();
+    background: url(/src/img/woman.png) 0 0 no-repeat;
+}
+
+.crown {
+    height: 30px;
+    width: 30px;
+    
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    transform: rotate(35deg);
+
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}
+
+.rating {
+    height: 100%;
+    width: 100%;
+}
+
+.author-first {
+    .rating();
+    background: url(/src/img/gold-crown.png) 0 0 no-repeat;
+    background-size: contain;
+}
+
+.author-second {
+    .rating();
+    background: url(/src/img/silver-crown.png) 0 0 no-repeat;
+    background-size: contain;
+}
+
+.author-third {
+    .rating();
+    background: url(/src/img/bronze-crown.png) 0 0 no-repeat;
+    background-size: contain;
+}
