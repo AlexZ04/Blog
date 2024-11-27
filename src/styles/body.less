@@ -2,16 +2,23 @@
 
 @block-width: 60%;
 @body-margin: 10px;
-@body-elem-border: 1px solid @shadow-color;
+@body-elem-border: 1px solid @gray-border;
 @margin-block: 0 @body-margin;
+
+.filter-option {
+    height: 25px;
+    border-radius: 2px;
+    border: @body-elem-border;
+}
+
+.text {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
 
 .body-container {
     display: flex;
     justify-content: center;
-
-    // width: 60dvw;
-    // height: calc(100dvh - @header-height - @footer-height);
-    // border: 1px solid black;
 }
 
 .block {
@@ -23,11 +30,10 @@
     display: flex;
     justify-content: center;
     margin-bottom: @body-margin;
-
 }
 
 .body-elem-container {
-    width: 60dvw;
+    width: 70dvw;
 
     .write-post-cont {
         display: flex;
@@ -64,7 +70,8 @@
 
         .bottom-part {
             width: 100%;
-            margin: @margin-block;
+            // margin: @margin-block;
+            padding: @margin-block;
 
             .bottom-top-part {
                 display: flex;
@@ -75,11 +82,62 @@
                     .filter-bottom-block();
 
                     p {
-                        margin-bottom: 2px;
+                        .text();
                     }
+
+
+                    input {
+                        width: 100%;
+                        .filter-option();
+                        padding-left: @body-margin;
+                    }
+
+                    select {
+                        width: 100%;
+
+                        option {
+                            padding-left: @body-margin;
+                        }
+                    }
+                }
+            }
+            
+            .bottom-bottom-part {
+                display: flex;
+                width: 100%;
+
+                .block-filter {
+                    display: flex;
+                    .filter-bottom-block();
+
+                    p {
+                        .text();
+                    }
+
+                    select, input {
+                        width: 100%;
+                        .filter-option();
+                    }
+                }
+
+                .sort {
+                    width: 40%;
+                }
+
+                .time {
+                    width: 20%;
+                }
+
+                .check {
+                    width: 10%;
                 }
             }
 
         }
     }
+}
+
+.block-glue {
+    width: 100%;
+    margin-right: @body-margin;
 }
