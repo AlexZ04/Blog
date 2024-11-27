@@ -4,24 +4,82 @@
     display: flex;
     justify-content: center;
 
-    margin-top: 10px;
+    padding-top: 10px;
 
-    height: 100dvh - @header-height - @footer-height;
+    height: calc(100dvh - @header-height - @footer-height);
+    
+    overflow-y: scroll;
 }
 
 .author {
     width: 80dvw;
+    height: 80px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     border-bottom: 1px solid @gray-button;
+    padding: 5px 20px;
+
+    cursor: pointer;
+}
+
+.author:hover {
+    opacity: 0.8;
 }
 
 .author-left-part {
     display: flex;
     align-items: center;
+}
+
+.author-main-info {
+    margin-bottom: 10px;
+
+    .author-name {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .author-create-time {
+        color: @gray-button;
+        font-style: italic;
+    }
+}
+
+.author-secondary-info {
+    font-size: 0.9rem;
+
+    .author-birth-text {
+        color: @gray-button;
+        font-weight: bold;
+    }
+
+    .author-birth-date {
+        color: @gray-button;
+    }
+}
+
+.author-right-part {
+    display: flex;
+
+    :first-child {
+        margin-right: 5px;
+    }
+
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.8rem;
+        width: 100px;
+        height: 20px;
+    }
+
+    a:hover {
+        opacity: 1;
+    }
 }
 
 .author-icon {
@@ -34,6 +92,7 @@
     position: relative;
     
     background-size: cover;
+    margin-right: 15px;
 }
 
 .male-image {
