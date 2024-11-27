@@ -1,0 +1,85 @@
+@import "./variables.less";
+
+@block-width: 60%;
+@body-margin: 10px;
+@body-elem-border: 1px solid @shadow-color;
+@margin-block: 0 @body-margin;
+
+.body-container {
+    display: flex;
+    justify-content: center;
+
+    // width: 60dvw;
+    // height: calc(100dvh - @header-height - @footer-height);
+    // border: 1px solid black;
+}
+
+.block {
+    margin-bottom: @body-margin;
+    border-radius: 2px;
+}
+
+.filter-bottom-block {
+    display: flex;
+    justify-content: center;
+    margin-bottom: @body-margin;
+
+}
+
+.body-elem-container {
+    width: 60dvw;
+
+    .write-post-cont {
+        display: flex;
+        .block();
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: @body-margin;
+    
+        margin-top: @body-margin;
+    
+        button {
+            height: 30px;
+            border-radius: 5px;
+        }
+    }
+
+    .filters-cont {
+        .block();
+        border: @body-elem-border;
+
+        .top-part {
+            background-color: @gray-background;
+            border: @body-elem-border;
+            display: flex;
+            width: 100%;
+            height: 30px;
+            align-items: center;
+
+            a {
+                height: 20px;
+                margin: @margin-block;
+            }
+        }
+
+        .bottom-part {
+            width: 100%;
+            margin: @margin-block;
+
+            .bottom-top-part {
+                display: flex;
+                width: 100%;
+
+                .bottom-top-block {
+                    width: 50%;
+                    .filter-bottom-block();
+
+                    p {
+                        margin-bottom: 2px;
+                    }
+                }
+            }
+
+        }
+    }
+}

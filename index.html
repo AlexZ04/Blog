@@ -7,11 +7,57 @@
 
     <script type="module" src="src/js/loadHeader.js" defer></script>
     <script type="module" src="/src/js/navigation.js" defer></script>
+    <script type="module" src="/src/js/body.js" defer></script>
 
     <link rel="stylesheet" href="./build/style/style.css">
 </head>
 <body>
     <header id="header"></header>
+
+    <div class="body-container">
+
+        <div class="body-elem-container">
+
+            <div class="write-post-cont">
+                <button class="blue" id="write_post">Написать пост</button>
+            </div>
+
+            <div class="filters-cont">
+                <div class="top-part">
+                    <a>Фильтры</a>
+                </div>
+
+                <div class="bottom-part">
+
+                    <div class="bottom-top-part">
+                        <div class="bottom-top-block">
+
+                            <div class="block-glue">
+                                <p>Поиск по имени автора</p>
+                                <input type="text">
+                            </div>
+                            
+                        </div>
+
+                        <div class="bottom-top-block">
+
+                            <div class="block-glue">
+                                <p>Поиск по имени автора</p>
+                                <input type="text" autocomplete="off">
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="bottom-bottom-part">
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
 
     <footer id="footer"></footer>
 </body>

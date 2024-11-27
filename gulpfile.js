@@ -16,6 +16,7 @@ const lessFiles = [
     './src/styles/pages.less',
     './src/styles/authors.less',
     './src/styles/scrollbar.less',
+    './src/styles/body.less',
 ]
 
 function styles() {
