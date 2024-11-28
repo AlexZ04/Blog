@@ -1,7 +1,7 @@
-import { RESULTS } from "../constants.js";
+import { RESULTS, API_URL } from "../constants.js";
 
 export async function Register(fullName, password, email, birthDate, gender, phoneNumber) {
-    var url = "https://blog.kreosoft.space/api/account/register";
+    var url = API_URL + "/api/account/register";
 
     try {
         let response = await fetch(url, {
@@ -27,7 +27,7 @@ export async function Register(fullName, password, email, birthDate, gender, pho
 }
 
 export async function LoginUser(email, pas){
-    var url = "https://blog.kreosoft.space/api/account/login";
+    var url = API_URL + "/api/account/login";
 
     try {
         let response = await fetch(url, {
@@ -56,7 +56,7 @@ export async function LoginUser(email, pas){
 }
 
 export async function Logout() {
-    var url = "https://blog.kreosoft.space/api/account/logout";
+    var url = API_URL + "/api/account/logout";
 
     try {
         let response = await fetch(url, {
@@ -76,7 +76,7 @@ export async function Logout() {
 }
 
 export async function GetProfile() {
-    var url = "https://blog.kreosoft.space/api/account/profile";
+    var url = API_URL + "/api/account/profile";
 
     try {
         let response = await fetch(url, {
@@ -104,7 +104,7 @@ export async function GetProfile() {
 }
 
 export async function EditProfile(email, fullName, birthDate, gender, phoneNumber) {
-    var url = "https://blog.kreosoft.space/api/account/profile";
+    var url = API_URL + "/api/account/profile";
 
     try {
         let response = await fetch(url, {
