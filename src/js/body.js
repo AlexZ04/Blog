@@ -112,7 +112,7 @@ async function setOnePost(data) {
     }
     
     post.innerHTML += `<div class="post-text">
-                        <a>${data.description}</a>
+                        <a class="collapse">${data.description}</a>
                     </div>
 
                     <div class="post-tags">
@@ -152,7 +152,6 @@ async function setOnePost(data) {
                 like.classList.remove('liked');
                 like.classList.add('no-liked');
                 likesAmount.text = Number(likesAmount.text) - 1;
-                console.log(likesAmount)
             }
         }
         else {
@@ -160,7 +159,6 @@ async function setOnePost(data) {
                 like.classList.add('liked');
                 like.classList.remove('no-liked');
                 likesAmount.text = Number(likesAmount.text) + 1;
-                console.log(likesAmount)
             }
         }
     });
@@ -189,3 +187,13 @@ res.posts.forEach(element => {
     setOnePost(element);
 });
 
+
+$('.collapse').collapser({
+    mode: 'lines',
+    truncate: 5,
+    showText: 'Читать полностью',
+    speed: 'fast',
+
+    lockHide: true,
+    }
+);
