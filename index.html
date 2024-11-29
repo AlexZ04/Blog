@@ -18,10 +18,6 @@
 
         <div class="body-elem-container">
 
-            <!-- <div class="write-post-cont">
-                <button class="blue" id="write_post">Написать пост</button>
-            </div> -->
-
             <div class="filters-cont">
                 <div class="top-part">
                     <a>Фильтры</a>
@@ -34,7 +30,7 @@
 
                             <div class="block-glue">
                                 <p>Поиск по имени автора</p>
-                                <input type="text">
+                                <input type="text" id="authors_name_filter">
                             </div>
                             
                         </div>
@@ -43,7 +39,7 @@
 
                             <div class="block-glue">
                                 <p>Поиск по тегам</p>
-                                <select multiple="true" size="3" class="tag-select">
+                                <select multiple="true" size="3" class="tag-select" id="tags_filter">
                                 </select>
                             </div>
                             
@@ -56,7 +52,7 @@
 
                             <div class="block-glue">
                                 <p>Сортировать</p>
-                                <select>
+                                <select id="sort_filter">
                                     <option>По дате создания (сначала новые)</option>
                                     <option>По дате создания (сначала старые)</option>
                                     <option>По количеству лайков (по убыванию)</option>
@@ -70,7 +66,7 @@
 
                             <div class="block-glue">
                                 <p>Время чтения от</p>
-                                <input type="text">
+                                <input type="text" id="time_start_filter">
                             </div> 
 
                         </div>
@@ -79,7 +75,7 @@
 
                             <div class="block-glue">
                                 <p>Время чтения до</p>
-                                <input type="text">
+                                <input type="text" id="time_end_filter">
                             </div> 
 
                         </div>
