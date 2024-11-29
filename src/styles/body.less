@@ -241,23 +241,48 @@
     .post {
         border: @body-elem-border;
         margin-bottom: @body-margin;
-        padding: @body-margin;
+        // padding: @body-margin;
+
+        .post-main-info {
+            margin: @body-margin;
+        }
 
         a {
             .text();
         }
 
-        .post-text {
-            margin-bottom: @body-margin;
+        .post-text, .post-time {
+            margin: @body-margin;
         }
 
         .post-tags {
+            margin: @body-margin;
             a {
                 color: @gray-text;
                 margin-right: 5px;
             }
 
             margin-bottom: @body-margin;
+        }
+
+        .post-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: @gray-background;
+            border: @body-elem-border;
+            margin-top: @body-margin;
+            padding: @margin-block;
+
+            height: 25px;
+
+            .post-comments {
+                display: flex;
+            }
+
+            .post-likes {
+                display: flex;
+            }
         }
     }
 }
