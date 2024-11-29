@@ -7,12 +7,14 @@ const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
 
 const bodyContainer = document.querySelector('.body-elem-container');
+const postsContainer = document.querySelector('.blog-block');
 
 const author = document.getElementById('authors_name_filter');
 const timeStart = document.getElementById('time_start_filter');
 const timeEnd = document.getElementById('time_end_filter');
 const sort = document.getElementById('sort_filter');
 const tags = document.getElementById('tags_filter');
+const size = document.getElementById('size-filter');
 
 var onlyMine = false;
 
@@ -88,9 +90,34 @@ async function getPosts(getData) {
             break;
     }
 
-    var res = await postConnection.GetPostsList(tagsId, author.value, timeStart.value, timeEnd.value, sortValue, onlyMine);
+    var res = await postConnection.GetPostsList(tagsId, author.value, timeStart.value, timeEnd.value, sortValue, onlyMine, 1, size.value);
 
     return res;
 }
 
-checkToken();
+async function setPosts(data) {
+    var post = document.createElement('div');
+    post.classList.add('post');
+
+    post.innerHTML = `<a>Имя * в сообществе во столько-то</a>
+                    <h3>Заголовок поста</h3>
+
+                    <hr>
+
+                    <div class="post-text">
+                        <a>Текст поста</a>
+                    </div>
+
+                    <div class="post-tags">
+                        <a>#1</a>
+                        <a>#2</a>
+                    </div>
+
+                    <a>Время чтения: 5 мин</a>`;
+
+    postsContainer.appendChild(post);
+}
+
+setPosts();
+setPosts();
+setPosts();

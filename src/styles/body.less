@@ -21,6 +21,9 @@
 .body-container {
     display: flex;
     justify-content: center;
+
+    height: calc(100dvh - @footer-height - @header-height);
+    overflow-y: scroll;
 }
 
 .block {
@@ -204,6 +207,7 @@
 .pagination-block {
     display: flex;
     justify-content: space-between;
+    padding-bottom: @body-margin;
 
     .pages-amount-select {
     
@@ -213,18 +217,47 @@
 
         select {
             width: 100%;
+            .filter-option();
         }
     }
 
     .page-num-select {
-        display: flex;
-        height: 20px;
 
         button {
             margin: 0;
             border: 1px solid @blue-button;
             background-color: white;
             color: blue;
+        }
+    }
+}
+
+
+// ---------------
+
+.blog-block {
+    width: 100%;
+
+    .post {
+        border: @body-elem-border;
+        margin-bottom: @body-margin;
+        padding: @body-margin;
+
+        a {
+            .text();
+        }
+
+        .post-text {
+            margin-bottom: @body-margin;
+        }
+
+        .post-tags {
+            a {
+                color: @gray-text;
+                margin-right: 5px;
+            }
+
+            margin-bottom: @body-margin;
         }
     }
 }
