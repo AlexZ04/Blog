@@ -18,6 +18,7 @@ const lessFiles = [
     './src/styles/scrollbar.less',
     './src/styles/body.less',
     './src/styles/postInfo.less',
+    './src/styles/createPost.less',
 ]
 
 function styles() {
