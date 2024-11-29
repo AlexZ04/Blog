@@ -27,7 +27,17 @@ body {
     border-radius: @border-rad;
     border: none;
     transition: 0.3s linear;
+    cursor: pointer;
 }
+
+.not-valid {
+    border: 1px solid red !important;
+}
+
+.not-valid:focus {
+    outline: none;
+}
+
 
 .blue {
     background-color: @blue-button;
@@ -44,10 +54,6 @@ body {
     opacity: 0.75;
 }
 
-.not-valid {
-    border: 1px solid red !important;
-}
-
-.not-valid:focus {
-    outline: none;
+.blue:active, .gray:active {
+    opacity: 1.1;
 }

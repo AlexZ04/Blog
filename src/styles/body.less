@@ -42,7 +42,7 @@
         .block();
         justify-content: flex-end;
         align-items: center;
-        margin-bottom: @body-margin;
+        margin-bottom: 0;
     
         margin-top: @body-margin;
     
@@ -55,6 +55,7 @@
     .filters-cont {
         .block();
         border: @body-elem-border;
+        margin-top: @body-margin;
 
         .top-part {
             background-color: @gray-background;
@@ -197,5 +198,33 @@
 .tag-select {
     option {
         border: @body-elem-border;
+    }
+}
+
+.pagination-block {
+    display: flex;
+    justify-content: space-between;
+
+    .pages-amount-select {
+    
+        p {
+            .text();
+        }
+
+        select {
+            width: 100%;
+        }
+    }
+
+    .page-num-select {
+        display: flex;
+        height: 20px;
+
+        button {
+            margin: 0;
+            border: 1px solid @blue-button;
+            background-color: white;
+            color: blue;
+        }
     }
 }

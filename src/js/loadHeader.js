@@ -1,5 +1,6 @@
 import * as connection from "./connection/usersConnection.js";
 import * as constants from "./constants.js";
+import { checkToken } from "./tokenCheck.js";
 
 var path = '/src/components';
 
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             renderHeader();
             addSelectionMenu();
-            checkToken();
+            checkAuth();
         });
 
     fetch(`${path}/footer.html`)
@@ -40,13 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function renderHeader() {
-    const accessToken = localStorage.getItem('access_token');
-
     const headerName = document.getElementById('header_name');
     const unauthorizedHeader = document.querySelector('.unauthorized-header');
     const authorizedHeader = document.querySelector('.loggined-header');
 
-    if (accessToken != null) {
+    if (checkToken()) {
         unauthorizedHeader.classList.add('hidden');
         authorizedHeader.classList.remove('hidden');
         headerName.innerText = localStorage.getItem('email');
@@ -89,12 +88,12 @@ function addSelectionMenu() {
 }
 
 
-async function checkToken() {
-    var res = await connection.GetProfile();
+async function checkAuth() {
+    var res = checkToken();
 
     if (!res) checkPage();
 
-    if (!res && localStorage.getItem("access_token")) {
+    if (!res && localStorage.getItem("access_token") !== null) {
         
         connection.resetToken();
         renderHeader();

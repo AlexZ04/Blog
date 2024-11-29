@@ -134,5 +134,6 @@ export async function EditProfile(email, fullName, birthDate, gender, phoneNumbe
 export function resetToken() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("email");
+    localStorage.removeItem("login_time");
     location.reload();
 }
