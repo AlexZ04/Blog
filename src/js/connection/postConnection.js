@@ -47,6 +47,50 @@ export async function GetPostsList(tags, author, min, max, sorting, onlyMyCommun
     }
 }
 
+export async function CreatePost(title, description, readingTime, image, addressId, tags) {
+    var url = API_URL + `/api/post`;
+
+    var body = JSON.stringify({title, description, readingTime, image, addressId, tags});
+
+    if (image) body.append(image);
+
+    try {
+        let response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            },
+            body: body
+        });
+
+        if (response.ok) {
+            let id = await response.json();
+
+            return id;
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+export async function GetPostInfo(id) {
+    var url = API_URL + `/api/post/${id}`;
+
+    try {
+        let response = await fetch(url);
+
+        if (response.ok) {
+            let data = await response.json();
+
+            return data;
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 export async function SetLike(postId) {
     var url = API_URL + `/api/post/${postId}/like`;
 

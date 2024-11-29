@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Info</title>
+
+    <script type="module" src="/src/js/loadHeader.js" defer></script>
+    <script type="module" src="/src/js/navigation.js" defer></script>
+    <script type="module" src="/src/js/postInfo.js" defer></script>
+
+    <link rel="stylesheet" href="/build/style/style.css">
+</head>
+<body>
+    <header id="header"></header>
+
+    <div class="body-container">
+
+        <div class="body-elem-container">
+
+            <div class="blog-block">
+
+            </div>
+
+            <div class="comment-block">
+                <h3>Комментарии</h3>
+
+                <div class="comment">
+
+                    <div class="main-comment">
+                        <a>Имя</a>
+                        <p>Текст коммента</p>
+                        <div class="comment-reply-block">
+                            <a>Дата</a>
+                            <span>Ответить</span>
+                        </div>
+                        <span>Раскрыть ответы</span>
+                    </div>
+
+                    <div class="child-comments-cont">
+                        <div class="child-comment">
+                            <a>Имя</a>
+                            <p>Текст коммента</p>
+                            <div class="comment-reply-block">
+                                <a>Дата</a>
+                                <span>Ответить</span>
+                            </div>
+                        </div>
+
+                        <div class="child-comments-cont">
+                            <div class="child-comment">
+                                <a>Имя</a>
+                                <p>Текст коммента</p>
+                                <div class="comment-reply-block">
+                                    <a>Дата</a>
+                                    <span>Ответить</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div class="send-comment-block">
+                <label for="comment_text_edit">Оставьте комментарий</label>
+                <textarea id="comment_text_edit" rows="7"></textarea>
+                <div class="send-com-btn">
+                    <a class="inv">-</a>
+                    <button class="blue">Отправить</button>
+                </div>
+                
+            </div>
+
+            <a class="inv">-</a>
+
+        </div>
+    
+    </div>
+
+    <footer id="footer"></footer>
+</body>
+</html>

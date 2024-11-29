@@ -50,6 +50,10 @@ if (checkToken()) {
 
     writePost.innerHTML = `<button class="blue" id="write_post">Написать пост</button>`;
     bodyContainer.insertAdjacentElement('afterbegin', writePost);
+
+    bodyContainer.querySelector('.blue').addEventListener('click', () => {
+        window.location.href = "/src/blogPost/createPost.html";
+    });
 }
 
 applyFiltersBtn.addEventListener('click', async () => {
@@ -140,12 +144,14 @@ async function setOnePost(data) {
 
     var postHeader = post.querySelector('.post-header');
     postHeader.addEventListener('click', () => {
-        console.log(postHeader.getAttribute("data-index"));
+        localStorage.setItem('post_info_id', postHeader.getAttribute("data-index"));
+        window.location.href = "/src/blogPost/postInfo.html";
     });
 
     var comment = post.querySelector('.comment');
     comment.addEventListener('click', () => {
-        console.log(comment.getAttribute("data-index"));
+        localStorage.setItem('post_info_id', comment.getAttribute("data-index"));
+        window.location.href = "/src/blogPost/postInfo.html";
     });
 
     var like = post.querySelector('.like-btn');

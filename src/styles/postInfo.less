@@ -1,0 +1,82 @@
+@import "./variables.less";
+
+.post {
+    margin: @body-margin 0;
+}
+
+.text {
+    font-size: @font-size;
+    margin-bottom: 2px;
+}
+
+.block {
+    border: 1px solid @gray-border;
+    padding: @body-margin;
+    margin: @body-margin 0;
+}
+
+.comment-block {
+    .block();
+
+    h3 {
+        margin-top: @body-margin;
+    }
+
+    a {
+        .text();
+    }
+
+    .comment-reply-block {
+        margin-bottom: calc(@body-margin / 2);
+    }
+
+    span {
+        background-color: white;
+        font-size: @font-size;
+        border: none;
+        color: @blue-button;
+        cursor: pointer;
+    }
+
+    span:hover {
+        text-decoration: underline;
+    }
+
+    .comment {
+        margin-bottom: calc(2 * @body-margin);
+
+        .child-comments-cont {
+            border-left: 3px solid @blue-border;
+            padding-left: 5px;
+        }
+    }
+ 
+}
+
+.send-comment-block {
+    .block();
+    .text();
+    position: relative;
+    
+    label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    textarea {
+        resize: none;
+        width: 100%;
+        padding: calc(@body-margin / 2) @body-margin;
+        margin-bottom: calc(@body-margin / 2);
+    }
+
+    .send-com-btn {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            height: 30px;
+            border-radius: 3px;
+        }
+    }
+}
