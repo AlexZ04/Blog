@@ -241,7 +241,15 @@
     .post {
         border: @body-elem-border;
         margin-bottom: @body-margin;
-        // padding: @body-margin;
+
+        .post-image {
+            display: flex;
+            justify-content: center;
+
+            img {
+                max-width: 250px;
+            }
+        }
 
         .post-main-info {
             margin: @body-margin;

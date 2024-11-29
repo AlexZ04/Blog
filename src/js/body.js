@@ -1,7 +1,7 @@
 import * as tagConnection from "./connection/tagConnection.js";
 import * as postConnection from "./connection/postConnection.js";
 import { checkToken } from "./tokenCheck.js";
-import { FILTER_SORTING } from "./constants.js";
+import { FILTER_SORTING, RESULTS } from "./constants.js";
 
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
@@ -52,8 +52,6 @@ if (checkToken()) {
     bodyContainer.insertAdjacentElement('afterbegin', writePost);
 }
 
-console.log(await getPosts(false));
-
 applyFiltersBtn.addEventListener('click', async () => {
     console.log(await getPosts(true));
 });
@@ -95,42 +93,99 @@ async function getPosts(getData) {
     return res;
 }
 
-async function setPosts(data) {
+async function setOnePost(data) {
     var post = document.createElement('div');
     post.classList.add('post');
+    post.dataset.index = data.id;
 
     post.innerHTML = `<div class="post-main-info">
-                        <a>Имя * в сообществе во столько-то</a>
-                        <h3>Заголовок поста</h3>
+                        <a>${data.author} · ${formatToPostTime(data.createTime)} ${data.communityName === null ? "" : 'в сообществе "' + data.communityName + '"'}</a>
+                        <h3>${data.title}</h3>
                         <hr>
-                    </div>
+                    </div>`
 
-                    <div class="post-text">
-                        <a>Текст поста</a>
+    if (data.image != null) {
+        post.innerHTML += 
+        `<div class="post-image">
+            <img src="${data.image}" alt="Картинка к посту">
+        </div>`
+    }
+    
+    post.innerHTML += `<div class="post-text">
+                        <a>${data.description}</a>
                     </div>
 
                     <div class="post-tags">
-                        <a>#1</a>
-                        <a>#2</a>
                     </div>
 
-                    <a class="post-time">Время чтения: 5 мин</a>
+                    <a class="post-time">Время чтения: ${data.readingTime} мин</a>
 
                     <div class="post-info">
                         <div class="post-comments">
-                            <a>100</a>
-                            <div class="post-info-icon comment"></div>
+                            <a>${data.commentsCount}</a>
+                            <div class="post-info-icon comment" data-index="${data.id}"></div>
                         </div>
                         
                         <div class="post-likes">
-                            <a>1</a>
-                            <div class="post-info-icon no-liked"></div>
+                            <a class="post-likes-amount">${data.likes}</a>
+                            <div class="post-info-icon like-btn ${data.hasLike ? 'liked' : 'no-liked'}" data-index="${data.id}"></div>
                         </div>
                     </div>`;
+    
+    var postTags = post.querySelector('.post-tags');
+
+    data.tags.forEach(element => {
+        postTags.innerHTML += `<a data-tagIndex="${element.id}">#${element.name}</a>`;
+    });
+
+    var comment = post.querySelector('.comment');
+    comment.addEventListener('click', () => {
+        console.log(comment.getAttribute("data-index"));
+    });
+
+    var like = post.querySelector('.like-btn');
+    var likesAmount = post.querySelector('.post-likes-amount');
+    like.addEventListener('click', async () => {
+
+        if (like.classList.contains('liked')) {
+            if (await postConnection.DeleteLike(like.getAttribute("data-index")) === RESULTS.SUCCESS) {
+                like.classList.remove('liked');
+                like.classList.add('no-liked');
+                likesAmount.text = Number(likesAmount.text) - 1;
+                console.log(likesAmount)
+            }
+        }
+        else {
+            if (await postConnection.SetLike(like.getAttribute("data-index")) === RESULTS.SUCCESS) {
+                like.classList.add('liked');
+                like.classList.remove('no-liked');
+                likesAmount.text = Number(likesAmount.text) + 1;
+                console.log(likesAmount)
+            }
+        }
+    });
+
 
     postsContainer.appendChild(post);
 }
 
-setPosts();
-setPosts();
-setPosts();
+function formatToPostTime(time) {
+    let day = time.split("T")[0].split("-")[2];
+    let month = time.split("-")[1];
+    let year = time.split("-")[0];
+
+    let postTime = time.split("T")[1].split(".")[0];
+
+    let resTime = postTime.split(":")[0] + ":" + postTime.split(":")[1];
+
+    return day + "." + month + "." + year + " " + resTime;
+}
+
+var res = await getPosts(false);
+
+console.log(res)
+
+res.posts.forEach(element => {
+    setOnePost(element);
+});
+
