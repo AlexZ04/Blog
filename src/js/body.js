@@ -53,7 +53,7 @@ if (checkToken()) {
 }
 
 applyFiltersBtn.addEventListener('click', async () => {
-    console.log(await getPosts(true));
+    setAllPosts(true);
 });
 
 
@@ -100,7 +100,7 @@ async function setOnePost(data) {
 
     post.innerHTML = `<div class="post-main-info">
                         <a>${data.author} · ${formatToPostTime(data.createTime)} ${data.communityName === null ? "" : 'в сообществе "' + data.communityName + '"'}</a>
-                        <h3>${data.title}</h3>
+                        <h3 class="post-header" data-index="${data.id}">${data.title}</h3>
                         <hr>
                     </div>`
 
@@ -138,6 +138,11 @@ async function setOnePost(data) {
         postTags.innerHTML += `<a data-tagIndex="${element.id}">#${element.name}</a>`;
     });
 
+    var postHeader = post.querySelector('.post-header');
+    postHeader.addEventListener('click', () => {
+        console.log(postHeader.getAttribute("data-index"));
+    });
+
     var comment = post.querySelector('.comment');
     comment.addEventListener('click', () => {
         console.log(comment.getAttribute("data-index"));
@@ -167,6 +172,32 @@ async function setOnePost(data) {
     postsContainer.appendChild(post);
 }
 
+async function setAllPosts(getData) {
+    postsContainer.innerHTML = "";
+
+    var res;
+    if (!getData) {
+        res = await getPosts(false);
+    }
+    else {
+        res = await getPosts(true);
+    }
+
+    res.posts.forEach(async element => {
+        await setOnePost(element);
+    });
+
+    $('.collapse').collapser({
+        mode: 'lines',
+        truncate: 5,
+        showText: 'Читать полностью',
+        speed: 'fast',
+    
+        lockHide: true,
+    });
+    
+}
+
 function formatToPostTime(time) {
     let day = time.split("T")[0].split("-")[2];
     let month = time.split("-")[1];
@@ -179,14 +210,11 @@ function formatToPostTime(time) {
     return day + "." + month + "." + year + " " + resTime;
 }
 
-var res = await getPosts(false);
+await setAllPosts(false);
 
-console.log(res)
-
-res.posts.forEach(element => {
-    setOnePost(element);
-});
-
+size.onchange = async function() {
+    await setAllPosts(true);
+};
 
 $('.collapse').collapser({
     mode: 'lines',
@@ -195,5 +223,4 @@ $('.collapse').collapser({
     speed: 'fast',
 
     lockHide: true,
-    }
-);
+});
