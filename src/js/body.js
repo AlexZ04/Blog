@@ -99,10 +99,11 @@ async function setPosts(data) {
     var post = document.createElement('div');
     post.classList.add('post');
 
-    post.innerHTML = `<a>Имя * в сообществе во столько-то</a>
-                    <h3>Заголовок поста</h3>
-
-                    <hr>
+    post.innerHTML = `<div class="post-main-info">
+                        <a>Имя * в сообществе во столько-то</a>
+                        <h3>Заголовок поста</h3>
+                        <hr>
+                    </div>
 
                     <div class="post-text">
                         <a>Текст поста</a>
@@ -113,7 +114,19 @@ async function setPosts(data) {
                         <a>#2</a>
                     </div>
 
-                    <a>Время чтения: 5 мин</a>`;
+                    <a class="post-time">Время чтения: 5 мин</a>
+
+                    <div class="post-info">
+                        <div class="post-comments">
+                            <a>100</a>
+                            <div class="post-info-icon comment"></div>
+                        </div>
+                        
+                        <div class="post-likes">
+                            <a>1</a>
+                            <div class="post-info-icon no-liked"></div>
+                        </div>
+                    </div>`;
 
     postsContainer.appendChild(post);
 }

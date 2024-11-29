@@ -276,13 +276,36 @@
 
             height: 25px;
 
-            .post-comments {
-                display: flex;
+            a {
+                margin-bottom: 0;
+                margin-right: 3px;
             }
 
-            .post-likes {
+            .post-comments, .post-likes {
                 display: flex;
+
+                .post-info-icon {
+                    height: 15px;
+                    width: 15px;
+                    cursor: pointer;
+                }
+
+                .comment {
+                    background: url(/src/img/comment.png) 0 0 no-repeat;
+                    background-size: cover;
+                }
+
+                .liked {
+                    background: url(/src/img/heart.png) 0 0 no-repeat;
+                    background-size: cover;
+                }
+
+                .no-liked {
+                    background: url(/src/img/empty-heart.png) 0 0 no-repeat;
+                    background-size: cover;
+                }
             }
+
         }
     }
 }
