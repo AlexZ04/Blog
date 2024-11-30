@@ -1,19 +1,88 @@
 @import "./variables.less";
 
 .create-post-cont {
-    display: block;
-    // justify-content: center;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 
     width: 70dvw;
-    height: calc(100dvh - @footer-height - @header-height);
-    border: @body-elem-border;
+    font-size: @font-size;
 
     .create-post-field {
-        margin-top: @body-margin;
-
-        .field-text {
-            margin-top: @body-margin;
-        }
+        width: 100%;
     } 
+
+    .field-text {
+        border: @body-elem-border;
+        padding: 0 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .level {
+        display: flex;
+        width: 100%;
+        margin-bottom: @body-margin;
+
+        input, select {
+            width: 100%;
+            .filter-option();
+        }
+
+        p {
+            margin: 0;
+            margin-bottom: 3px;
+        }
+
+        .title {
+            width: 70%;
+            margin-right: @body-margin;
+        }
+
+        .time {
+            width: 30%;
+        }
+
+        .group {
+            width: 50%;
+            margin-right: @body-margin;
+        }
+
+        .tags {
+            width: 50%;
+        }
+
+        .image-link {
+            width: 100%;
+        }
+
+        .post-text {
+            width: 100%;
+
+            textarea {
+                width: 100%;
+                resize: none;
+            }
+        }
+
+        .address {
+            width: 100%;
+
+            h3 {
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+            
+        }
+        
+    }
+
+    .create {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            .filter-option();
+            border-radius: 5px;
+        }
+    }
 }

@@ -84,7 +84,7 @@ async function getPosts(getData) {
         case "По количеству лайков (по убыванию)":
             sortValue = FILTER_SORTING.LikeDesc;
             break;
-        case "По дате создания (по возрастанию)":
+        case "По количеству лайков (по возрастанию)":
             sortValue = FILTER_SORTING.LikeAsc;
             break;
         default:

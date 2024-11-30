@@ -13,17 +13,79 @@
 <body>
     <header id="header"></header>
 
-    <div class="create-post-cont">
+    <div class="body-container">
+        <div class="create-post-cont">
 
-        <div class="create-post-field">
-            
-            <div class="field-text">
-                <h2>Написать новый пост</h2>
+            <div class="create-post-field">
+                
+                <div class="field-text">
+                    <h2>Написать новый пост</h2>
+    
+                    <div class="level">
+                        <div class="title">
+                            <p>Название</p>
+                            <input type="text">
+                        </div>
+    
+                        <div class="time">
+                            <p>Время чтения</p>
+                            <input type="text">
+                        </div>
+                    </div>
+    
+                    <div class="level">
+                        <div class="group">
+                            <p>Группа</p>
+                            <select>
+                                <option>Без группы</option>
+                            </select>
+                        </div>
+    
+                        <div class="tags">
+                            <p>Время чтения</p>
+                            <select multiple="true" size="3" class="tag-select" id="tags_filter">
+                            </select>  
+                        </div>
+                    </div>
+    
+                    <div class="level">
+                        <div class="image-link">
+                            <p>Ссылка на картинку</p>
+                            <input type="text">
+                        </div>
+                    </div>
+    
+                    <div class="level">
+                        <div class="post-text">
+                            <p>Текст</p>
+                            <textarea rows="10"></textarea>
+                        </div>
+                    </div>
+    
+                    <div class="level">
+                        <div class="address">
+                            <h3>Адрес</h3>
+                            <p>Субъект РФ</p>
+                            <select>
+                                <option>1</option>
+                            </select>
+                        </div>
+                    </div>
+                        
+                    <div class="level create">
+                        <a class="inv">-</a>
+                        <button class="blue">Создать пост</button>
+                    </div>
+                
+                </div>
+                
+                <a class="inv">-</a>
             </div>
-            
+    
         </div>
 
     </div>
+
 
     <footer id="footer"></footer>
 </body>
