@@ -1,5 +1,6 @@
 import * as postConnection from "./connection/postConnection.js";
 import { getPostCode } from '../components/posts.js';
+import { RESULTS } from "./constants.js";
 
 var postId = localStorage.getItem('post_info_id');
 
@@ -25,7 +26,7 @@ function setPostInfo(data) {
     var postHeader = post.querySelector('.post-header');
     postHeader.addEventListener('click', () => {
         localStorage.setItem('post_info_id', postHeader.getAttribute("data-index"));
-        window.location.href = "/src/blogPost/postInfo.html";
+        window.location.href = `/src/blogPost/postInfo.html`;
     });
 
     var comment = post.querySelector('.comment');

@@ -78,7 +78,12 @@ export async function GetPostInfo(id) {
     var url = API_URL + `/api/post/${id}`;
 
     try {
-        let response = await fetch(url);
+        let response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            },
+        });
 
         if (response.ok) {
             let data = await response.json();

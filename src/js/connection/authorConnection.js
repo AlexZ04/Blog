@@ -1,4 +1,4 @@
-import { API_URL } from "../constants";
+import { API_URL } from "../constants.js";
 
 export async function GetAuthorList() {
     var url = API_URL + "/api/author/list";
