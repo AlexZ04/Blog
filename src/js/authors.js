@@ -64,6 +64,10 @@ function getAuthorCode(element) {
         author.querySelector('.image').appendChild(crown);
     }
 
+    author.querySelector('.author').addEventListener('click', () => {
+        window.location.href = `/index.html?author=${element.fullName}`;
+    });
+
     return author;
 }
 

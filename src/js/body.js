@@ -3,6 +3,7 @@ import * as postConnection from "./connection/postConnection.js";
 import { checkToken } from "./tokenCheck.js";
 import { FILTER_SORTING, RESULTS } from "./constants.js";
 
+
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
 
@@ -16,9 +17,33 @@ const sort = document.getElementById('sort_filter');
 const tags = document.getElementById('tags_filter');
 const size = document.getElementById('size-filter');
 
+var postTemplate = await getTemplate('post_template'), 
+    postImageTemplate = await getTemplate('post_image_template'),
+    postTagsTemplate = await getTemplate('tag_template');
+
+async function getTemplate(id) {
+    var template;
+
+    await fetch('src/components/postTemplate.html')
+    .then(response => response.text())
+    .then(data => {
+        let temp = document.createElement('div');
+
+        temp.innerHTML = data;
+
+        const templateTemp = temp.querySelector(`#${id}`);
+
+        template = templateTemp;
+    });
+
+    return template;
+}
+
 var onlyMine = false;
 
 var tagsMap = new Map();
+
+checkURL();
 
 applyOnlyMineFilter.addEventListener('click', () => {
     if (applyOnlyMineFilter.classList.contains('blue')) {
@@ -45,13 +70,11 @@ tagList.forEach(element => {
 });
 
 if (checkToken()) {
-    const writePost = document.createElement('div');
-    writePost.classList.add('write-post-cont');
+    const writePostTemplate = document.getElementById('write_post_template').content.cloneNode(true);
 
-    writePost.innerHTML = `<button class="blue" id="write_post">Написать пост</button>`;
-    bodyContainer.insertAdjacentElement('afterbegin', writePost);
-
-    bodyContainer.querySelector('.blue').addEventListener('click', () => {
+    bodyContainer.insertBefore(writePostTemplate, bodyContainer.firstChild);
+    
+    document.getElementById('write_post').addEventListener('click', () => {
         window.location.href = "/src/blogPost/createPost.html";
     });
 }
@@ -60,14 +83,16 @@ applyFiltersBtn.addEventListener('click', async () => {
     setAllPosts(true);
 });
 
+function checkURL() {
+    let params = new URLSearchParams(document.location.search);
 
-async function getPosts(getData) {
-    if (!getData) {
-        var res = await postConnection.GetPostsList();
-
-        return res;
+    if (params.get('author')) {
+        author.value = params.get('author');
     }
 
+}
+
+async function getPosts() {
     let tagsId = [];
     [...tags.selectedOptions].map(opt => opt.value).forEach(element => {
         tagsId.push(tagsMap.get(element));
@@ -98,51 +123,44 @@ async function getPosts(getData) {
 }
 
 async function setOnePost(data) {
-    var post = document.createElement('div');
-    post.classList.add('post');
-    post.dataset.index = data.id;
+    var post = postTemplate.content.cloneNode(true);
+    post.querySelector('.post').dataset.index = data.id;
 
-    post.innerHTML = `<div class="post-main-info">
-                        <a>${data.author} · ${formatToPostTime(data.createTime)} ${data.communityName === null ? "" : 'в сообществе "' + data.communityName + '"'}</a>
-                        <h3 class="post-header" data-index="${data.id}">${data.title}</h3>
-                        <hr>
-                    </div>`
+    let postHeader = post.querySelector('.post-header');
+    post.querySelector('.post-header').textContent = data.title;
+    post.querySelector('.post-header').dataset.index = data.id;
+
+    post.querySelector('.post-main-info-text').textContent = `${data.author} · ${formatToPostTime(data.createTime)} 
+    ${data.communityName === null ? "" : 'в сообществе "' + data.communityName + '"'}`;
+
+    post.querySelector('.collapse').textContent = data.description;
+    post.querySelector('.post-time').textContent = `Время чтения: ${data.readingTime} мин`;
+
+    post.querySelector('.post-comments').querySelector('a').textContent = data.commentsCount;
+    post.querySelector('.post-likes-amount').textContent = data.likes;
+
+    post.querySelector('.like-btn').classList.add(data.hasLike ? 'liked' : 'no-liked');
+    post.querySelector('.like-btn').dataset.index = data.id;
 
     if (data.image != null) {
-        post.innerHTML += 
-        `<div class="post-image">
-            <img src="${data.image}" alt="Картинка к посту">
-        </div>`
+        let image = postImageTemplate.content.cloneNode(true).querySelector('.post-image');
+        image.querySelector('img').src = data.image;
+        post.querySelector('.post').insertBefore(image, post.querySelector('.post-text'));
     }
-    
-    post.innerHTML += `<div class="post-text">
-                        <a class="collapse">${data.description}</a>
-                    </div>
 
-                    <div class="post-tags">
-                    </div>
-
-                    <a class="post-time">Время чтения: ${data.readingTime} мин</a>
-
-                    <div class="post-info">
-                        <div class="post-comments">
-                            <a>${data.commentsCount}</a>
-                            <div class="post-info-icon comment" data-index="${data.id}"></div>
-                        </div>
-                        
-                        <div class="post-likes">
-                            <a class="post-likes-amount">${data.likes}</a>
-                            <div class="post-info-icon like-btn ${data.hasLike ? 'liked' : 'no-liked'}" data-index="${data.id}"></div>
-                        </div>
-                    </div>`;
-    
     var postTags = post.querySelector('.post-tags');
 
     data.tags.forEach(element => {
-        postTags.innerHTML += `<a data-tagIndex="${element.id}">#${element.name}</a>`;
+        let postTag = postTagsTemplate.content.cloneNode(true);
+        
+        let postTagText = postTag.querySelector('a');
+
+        postTagText.textContent = '#' + element.name;
+        postTagText.dataset.tagIndex = element.id;
+
+        postTags.appendChild(postTag)
     });
 
-    var postHeader = post.querySelector('.post-header');
     postHeader.addEventListener('click', () => {
         localStorage.setItem('post_info_id', postHeader.getAttribute("data-index"));
         localStorage.setItem('scroll_to_comments', 0);
@@ -183,13 +201,7 @@ async function setOnePost(data) {
 async function setAllPosts(getData) {
     postsContainer.innerHTML = "";
 
-    var res;
-    if (!getData) {
-        res = await getPosts(false);
-    }
-    else {
-        res = await getPosts(true);
-    }
+    var res = await getPosts();
 
     res.posts.forEach(async element => {
         await setOnePost(element);
@@ -218,7 +230,7 @@ function formatToPostTime(time) {
     return day + "." + month + "." + year + " " + resTime;
 }
 
-await setAllPosts(false);
+await setAllPosts(true);
 
 size.onchange = async function() {
     await setAllPosts(true);
