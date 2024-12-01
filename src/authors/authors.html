@@ -11,11 +11,42 @@
     <link rel="stylesheet" href="../../build/style/style.css">
 </head>
 <body>
+    <template id="author_template">
+
+        <div class="author">
+            <div class="author-left-part">
+                <div class="image ${element.gender === GENDERS.MALE ? 'male-image' : 'female-image'}">
+                    
+                </div>
+
+                <div class="author-info-cont">
+                    <div class="author-main-info">
+                        <a class="author-name"></a>
+                        <a class="author-create-time">Создан: ${getDateString(element.created)}</a>
+                    </div>
+
+                    <div class="author-secondary-info">
+                        <a class="author-birth-text">Дата рождения:</a>
+                        <a class="author-birth-date">${getDateString(element.birthDate)}</a>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="author-right-part">
+                <a class="author-posts blue">Постов: ${element.posts}</a>
+                <a class="author-likes blue">Лайков: ${element.likes}</a>
+            </div>
+        </div>
+    </template>
+
+
     <header id="header"></header>
 
     <div class="authors-cont">
 
         <div class="authors-elements-cont">
+            
         </div>
         
     </div>

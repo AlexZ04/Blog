@@ -3,6 +3,7 @@ import { GENDERS } from "./constants.js";
 
 const authors = await authorsConnection.GetAuthorList();
 const authorCont = document.querySelector(".authors-elements-cont");
+const authorTemplate = document.getElementById('author_template');
 
 var authorsSort = Object.assign([], authors);
 authorsSort.sort(compareRating);
@@ -38,33 +39,20 @@ authorsSort.forEach(element => {
     prevElem = element;
 });
 
-authors.forEach(element => {
-    var author = document.createElement('div');
-    author.classList.add('author');
-
-    author.innerHTML = `<div class="author-left-part">
-                    <div class="image ${element.gender === GENDERS.MALE ? 'male-image' : 'female-image'}">
-                        
-                    </div>
-
-                    <div class="author-info-cont">
-                        <div class="author-main-info">
-                            <a class="author-name">${element.fullName}</a>
-                            <a class="author-create-time">Создан: ${getDateString(element.created)}</a>
-                        </div>
+authors.forEach(element => {    
+    var author = getAuthorCode(element);
     
-                        <div class="author-secondary-info">
-                            <a class="author-birth-text">Дата рождения:</a>
-                            <a class="author-birth-date">${getDateString(element.birthDate)}</a>
-                        </div>
-                    </div>
-                    
-                </div>
+    authorCont.appendChild(author);
+});
 
-                <div class="author-right-part">
-                    <a class="author-posts blue">Постов: ${element.posts}</a>
-                    <a class="author-likes blue">Лайков: ${element.likes}</a>
-                </div>`;
+function getAuthorCode(element) {
+    var author = authorTemplate.content.cloneNode(true);
+    author.querySelector('.image').classList.add(element.gender === GENDERS.MALE ? 'male-image' : 'female-image');
+    author.querySelector('.author-name').textContent = element.fullName;
+    author.querySelector('.author-create-time').textContent = getDateString(element.created);
+    author.querySelector('.author-birth-date').textContent = getDateString(element.birthDate);
+    author.querySelector('.author-posts').textContent = `Постов: ${element.posts}`;
+    author.querySelector('.author-likes').textContent = `Лайков: ${element.likes}`;
     
     if (firstPlace.includes(element) || secondPlace.includes(element) || thirdPlace.includes(element)) {
         var crown = document.createElement('div');
@@ -75,9 +63,9 @@ authors.forEach(element => {
 
         author.querySelector('.image').appendChild(crown);
     }
-    
-    authorCont.appendChild(author);
-});
+
+    return author;
+}
 
 function getDateString(inpDate) {
     if (inpDate == null) return "-";
