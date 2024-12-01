@@ -1,0 +1,80 @@
+@import "./variables.less";
+
+.group-block {
+    width: 100%;
+    border: @body-elem-border;
+    padding: 0 @body-margin;
+    margin-bottom: @body-margin;
+}
+
+.group-main-info {
+    .group-block();
+
+    .group-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .header-btns {
+            :first-child {
+                margin-right: calc(@body-margin / 2);
+            }
+        }
+    }
+
+    .group-subs {
+        .text();
+        display: flex;
+        align-items: center;
+
+        .people-icon {
+            width: 20px;
+            height: 20px;
+            background: url(/src/img/people.png) 0 0 no-repeat;
+            background-size: cover;
+        }
+    }
+
+    .group-subs {
+        .text();
+        margin-top: @body-margin;
+    }
+
+    .group-admins {
+        .admin {
+            display: flex;
+            align-items: center;
+            border-bottom: @body-elem-border;
+            padding: calc(@body-margin / 2) 0;
+        }
+
+        h3 {
+            margin-bottom: 0;
+        }
+        
+        :last-child {
+            border: none;
+        }
+
+        margin-bottom: @body-margin;
+    }
+
+}
+
+.group-tags {
+    .text();
+    width: 100%;
+    margin-bottom: @body-margin;
+
+    .first-level {
+        width: 100%;
+        background-color: @gray-background;
+        border: @body-elem-border;
+        padding: 0 @body-margin;
+    }
+
+    .second-level {
+        border: @body-elem-border;
+        padding: 0 @body-margin;
+    }
+}
