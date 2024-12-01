@@ -46,14 +46,19 @@ body {
 
 .gray {
     background-color: @gray-button;
-    color: white;
     .buttons-style();
 }
 
-.blue:hover, .gray:hover {
+.red {
+    background-color: @red-button;
+    .buttons-style();
+}
+
+
+.blue:hover, .gray:hover, .red:hover {
     opacity: 0.75;
 }
 
-.blue:active, .gray:active {
-    opacity: 1.1;
+.blue:active, .gray:active, .red:active {
+    opacity: 1;
 }

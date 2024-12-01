@@ -1,0 +1,31 @@
+@import "./variables.less";
+
+.group-container {
+    margin-top: 10px;
+    width: 70dvw;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: @body-elem-border;
+    padding: 0 @body-margin;
+
+    background-color: @group-background;
+
+    button {
+        height: 30px;
+        border-radius: 3px;
+    }
+
+    h3 {
+        cursor: pointer;
+        transition: 0.3s linear;
+    }
+
+    h3:hover {
+        opacity: 0.5;
+    }
+}
