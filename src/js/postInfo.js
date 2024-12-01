@@ -6,6 +6,7 @@ var postId = localStorage.getItem('post_info_id');
 
 const bodyContainer = document.querySelector('.body-elem-container');
 const postsContainer = document.querySelector('.blog-block');
+const commentBlock = document.querySelector('.comment-block');
 
 var postInfo = await postConnection.GetPostInfo(postId);
 console.log(postInfo);
@@ -59,8 +60,6 @@ function setPostInfo(data) {
     postsContainer.appendChild(post);
 }
 
-setPostInfo(postInfo);
-
 function formatToPostTime(time) {
     let day = time.split("T")[0].split("-")[2];
     let month = time.split("-")[1];
@@ -72,3 +71,11 @@ function formatToPostTime(time) {
 
     return day + "." + month + "." + year + " " + resTime;
 }
+
+
+setPostInfo(postInfo);
+
+if (localStorage.getItem('scroll_to_comments') == "1") {
+    commentBlock.scrollIntoView({behavior: "smooth"});
+}
+

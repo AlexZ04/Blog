@@ -145,12 +145,14 @@ async function setOnePost(data) {
     var postHeader = post.querySelector('.post-header');
     postHeader.addEventListener('click', () => {
         localStorage.setItem('post_info_id', postHeader.getAttribute("data-index"));
+        localStorage.setItem('scroll_to_comments', 0);
         window.location.href = "/src/blogPost/postInfo.html";
     });
 
     var comment = post.querySelector('.comment');
     comment.addEventListener('click', () => {
         localStorage.setItem('post_info_id', comment.getAttribute("data-index"));
+        localStorage.setItem('scroll_to_comments', 1);
         window.location.href = "/src/blogPost/postInfo.html";
     });
 
