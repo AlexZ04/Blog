@@ -76,5 +76,32 @@
     .second-level {
         border: @body-elem-border;
         padding: 0 @body-margin;
+
+        .second-levels-btns {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: @body-margin;
+        }
+
+        .second-level-filters {
+            .second-levels-btns();
+
+            p {
+                margin-bottom: 2px;
+            }
+
+            select {
+                .filter-option();
+                width: 100%;
+            }
+
+            .tag-select {
+                height: auto;
+            }
+
+            :last-child {
+                margin-right: 0;
+            }
+        }
     }
 }
