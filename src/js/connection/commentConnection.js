@@ -69,7 +69,7 @@ export async function EditComment(id, content) {
     }
 }
 
-export async function EditComment(id) {
+export async function DeleteComment(id) {
     var url = API_URL + `/api/comment/${id}`;
 
     try {

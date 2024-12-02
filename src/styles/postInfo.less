@@ -27,7 +27,7 @@
     }
 
     .comment-reply-block {
-        margin-bottom: calc(@body-margin / 2);
+        padding-bottom: calc(@body-margin / 2);
     }
 
     span {
@@ -48,6 +48,25 @@
         .child-comments-cont {
             border-left: 3px solid @blue-border;
             padding-left: 5px;
+        }
+
+        .comment-text {
+            display: flex;
+            align-items: baseline;
+
+            p {
+                margin-right: 2px;
+            }
+
+            a {
+                margin-bottom: 0;
+                color: gray;
+                font-size: 0.7rem;
+            }
+        }
+
+        .comment-head {
+            display: flex;
         }
     }
  
@@ -78,5 +97,36 @@
             height: 30px;
             border-radius: 3px;
         }
+    }
+}
+
+.comment-owner-icons {
+    height: 15px;
+    width: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.edit-icon {
+    .comment-owner-icons();
+    background: url(/src/img/edit.png) 0 0 no-repeat;
+    background-size: cover;
+}
+
+.delete-icon {
+    .comment-owner-icons();
+    background: url(/src/img/trash-can.png) 0 0 no-repeat;
+    background-size: cover;
+}
+
+
+.reply-block, .edit-block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input {
+        .filter-option();
+        width: 80%;
     }
 }
