@@ -1,4 +1,5 @@
 import * as postConnection from "./connection/postConnection.js";
+import * as commentConnection from "./connection/commentConnection.js";
 import { RESULTS } from "./constants.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 
@@ -28,5 +29,5 @@ document.querySelector('.comment').addEventListener('click', () => {
 
 if (localStorage.getItem('scroll_to_comments') == "1") {
     commentBlock.scrollIntoView({behavior: "smooth"});
+    localStorage.setItem('scroll_to_comments', '0');
 }
-
