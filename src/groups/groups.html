@@ -6,28 +6,24 @@
     <title>Groups</title>
 
     <script type="module" src="/src/js/loadHeader.js" defer></script>
+    <script type="module" src="/src/js/groups.js" defer></script>
 
     <link rel="stylesheet" href="/build/style/style.css">
 </head>
 <body>
     <header id="header"></header>
 
+    <template id="group-small-template">
+        <div class="group">
+            <h3></h3>
+            <button class="blue">Подписаться</button>
+            <button class="red">Отписаться</button>
+        </div>
+    </template>
+
     <div class="body-container">
 
         <div class="group-container">
-            <div class="group">
-                <h3>Группа 1</h3>
-                <button class="blue">Подписаться</button>
-            </div>
-
-            <div class="group">
-                <h3>Группа 2</h3>
-                <button class="red">Отписаться</button>
-            </div>
-
-            <div class="group">
-                <h3>Группа 3</h3>
-            </div>
         </div>
         
     </div>
