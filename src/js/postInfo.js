@@ -128,15 +128,14 @@ function setCommentInfo(comment, commentInfo) {
 }
 
 setPostInfo(postInfo);
+setComments(postInfo.comments);
 
 document.querySelector('.comment').addEventListener('click', () => {
     commentBlock.scrollIntoView({behavior: "smooth"});
 });
-``
+
+
 if (localStorage.getItem('scroll_to_comments') == "1") {
     commentBlock.scrollIntoView({behavior: "smooth"});
     localStorage.setItem('scroll_to_comments', '0');
 }
-
-
-setComments(postInfo.comments);
