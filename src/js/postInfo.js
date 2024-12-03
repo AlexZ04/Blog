@@ -2,6 +2,7 @@ import * as postConnection from "./connection/postConnection.js";
 import * as commentConnection from "./connection/commentConnection.js";
 import { RESULTS } from "./constants.js";
 import { getTemplate, getPostTemplate, formatToPostTime } from "../templatesWork/postTemplate.js";
+import { checkToken } from "./tokenCheck.js";
 
 var postId = localStorage.getItem('post_info_id');
 
@@ -114,6 +115,9 @@ function setCommentInfo(comment, commentInfo) {
 
     commentReplyBlock.querySelector('a').textContent = formatToPostTime(commentInfo.createTime);
 
+    if (!checkToken()) {
+        commentReplyBlock.querySelector('.write-reply').classList.add('hidden');
+    }
     
     var commentEditField = comment.querySelector('.edit-block');
     comment.querySelector('.edit-icon').addEventListener('click', () => {

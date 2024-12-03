@@ -21,6 +21,7 @@ const lessFiles = [
     './src/styles/createPost.less',
     './src/styles/groups.less',
     './src/styles/groupInfo.less',
+    './src/styles/error.less',
 ]
 
 function styles() {
