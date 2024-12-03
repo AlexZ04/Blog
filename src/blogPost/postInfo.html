@@ -15,6 +15,83 @@
     <header id="header"></header>
 
     <template id="main_comment_template">
+        <div class="comment">
+
+            <div class="main-comment">
+
+                <div class="comment-head">
+                    <a></a>
+                    <div class="edit-icon"></div>
+                    <div class="delete-icon"></div>
+                </div>
+                
+                <div class="comment-text">
+
+                    <div class="text-block">
+                        <p></p>
+                        <a>&#40изменен&#41</a>
+                        <input type="text" class="mod-date hidden" readonly>
+                    </div>
+
+                    <div class="edit-block hidden">
+                        <input type="text" placeholder="Оставьте комментарий..."> 
+                        <button class="yellow">Редактировать</button>
+                    </div>
+                </div>
+
+                <div class="comment-reply-block">
+                    <a></a>
+                    <span class="write-reply">Ответить</span>
+
+                    <div class="reply-block hidden">
+                        <input type="text" placeholder="Оставьте комментарий..."> 
+                        <button class="blue">Отправить</button>
+                    </div>
+
+                    <p class="show-replies hidden">Раскрыть ответы</p>
+                </div>
+            </div>
+
+            <div class="child-comments-cont">
+            </div>
+
+        </div>
+    </template>
+
+    <template id="child_comment_template">
+        
+        <div class="child-comment">
+
+            <div class="comment-head">
+                <a></a>
+                <div class="edit-icon"></div>
+                <div class="delete-icon"></div>
+            </div>
+            
+            <div class="comment-text">
+
+                <div class="text-block">
+                    <p></p>
+                    <a>&#40изменен&#41</a>
+                    <input type="text" class="mod-date hidden" readonly>
+                </div>
+
+                <div class="edit-block hidden">
+                    <input type="text" placeholder="Оставьте комментарий..."> 
+                    <button class="yellow">Редактировать</button>
+                </div>
+            </div>
+
+            <div class="comment-reply-block">
+                <a></a>
+                <span class="write-reply">Ответить</span>
+
+                <div class="reply-block hidden">
+                    <input type="text" placeholder="Оставьте комментарий..."> 
+                    <button class="blue">Отправить</button>
+                </div>
+            </div>
+        </div>
 
     </template>
 
@@ -28,54 +105,6 @@
 
             <div class="comment-block">
                 <h3>Комментарии</h3>
-
-                <div class="comment">
-
-                    <div class="main-comment">
-
-                        <div class="comment-head">
-                            <a>Имя</a>
-                            <div class="edit-icon"></div>
-                            <div class="delete-icon"></div>
-                        </div>
-                        
-                        <div class="comment-text">
-                            <!-- <p>Текст коммента</p>
-                            <a>&#40изменен&#41</a> -->
-
-                            <div class="edit-block">
-                                <input type="text" placeholder="Оставьте комментарий..."> 
-                                <button class="yellow">Редактировать</button>
-                            </div>
-                        </div>
-                        <div class="comment-reply-block">
-                            <a>Дата</a>
-                            <span>Ответить</span>
-
-                            <div class="reply-block">
-                                <input type="text" placeholder="Оставьте комментарий..."> 
-                                <button class="blue">Отправить</button>
-                            </div>
-                        </div>
-                        <span>Раскрыть ответы</span>
-                    </div>
-
-                    <div class="child-comments-cont">
-                        <div class="child-comment">
-                            <a>Имя</a>
-                            <div class="comment-text">
-                                <p>Текст коммента</p>
-                                <a>&#40изменено&#41</a>
-                            </div>
-
-                            <div class="comment-reply-block">
-                                <a>Дата</a>
-                                <span>Ответить</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
 

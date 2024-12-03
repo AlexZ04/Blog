@@ -18,7 +18,7 @@ const sort = document.getElementById('sort_filter');
 const tags = document.getElementById('tags_filter');
 const size = document.getElementById('size-filter');
 
-var postTemplate = await getTemplate('post_template'), 
+const postTemplate = await getTemplate('post_template'), 
     postImageTemplate = await getTemplate('post_image_template'),
     postTagsTemplate = await getTemplate('tag_template');
 

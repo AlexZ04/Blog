@@ -102,7 +102,7 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
     return post;
 }
 
-function formatToPostTime(time) {
+export function formatToPostTime(time) {
     let day = time.split("T")[0].split("-")[2];
     let month = time.split("-")[1];
     let year = time.split("-")[0];

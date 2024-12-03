@@ -135,5 +135,6 @@ export function resetToken() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("email");
     localStorage.removeItem("login_time");
+    localStorage.removeItem("user_id");
     location.reload();
 }

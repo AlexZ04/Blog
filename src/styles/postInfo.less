@@ -30,27 +30,34 @@
         padding-bottom: calc(@body-margin / 2);
     }
 
-    span {
+    span, .show-replies {
         background-color: white;
         font-size: @font-size;
         border: none;
         color: @blue-button;
         cursor: pointer;
+        margin-bottom: 0;
     }
 
-    span:hover {
+    .show-replies {
+        margin-bottom: 0;
+        margin-top: 3px;
+    }
+
+    span:hover, .show-replies:hover {
         text-decoration: underline;
     }
 
-    .comment {
+    .comment, .child-comment {
         margin-bottom: calc(2 * @body-margin);
+        border-bottom: 1px solid @gray-border;
 
         .child-comments-cont {
             border-left: 3px solid @blue-border;
             padding-left: 5px;
         }
 
-        .comment-text {
+        .text-block {
             display: flex;
             align-items: baseline;
 
@@ -129,4 +136,12 @@
         .filter-option();
         width: 80%;
     }
+}
+
+.mod-date {
+    width: 20%;
+    text-align: center;
+    margin-left: 5px;
+    border: 1px solid @gray-border;
+    color: @gray-button;
 }
