@@ -6,47 +6,54 @@
     <title>Group Info</title>
 
     <script type="module" src="/src/js/loadHeader.js" defer></script>
+    <script type="module" src="/src/js/groupInfo.js" defer></script>
 
     <link rel="stylesheet" href="/build/style/style.css">
 </head>
 <body>
     <header id="header"></header>
 
+    <template id="group_main_info_temp">
+
+        <div class="group-header">
+            <h2></h2>
+
+            <div class="header-btns">
+                <button class="blue">Написать пост</button>
+                <button class="red">Отписаться</button>
+            </div>
+        </div>
+
+        <div class="group-subs">
+            <div class="people-icon"></div>
+            <a>7 подписчиков</a>
+        </div>
+
+        <div class="group-type">
+            <a>Тип сообщества: закрытое</a>
+        </div>
+
+        <div class="group-admins">
+            <h3>Администраторы</h3>
+        </div>
+
+    </template>
+
+    <template id="group_admin_template">
+        <div class="admin">
+            <div class="admin-icon male-image"></div>
+            <a>Имя админа</a>
+        </div>
+    </template>
+
+    <template id="group_post_temp">
+
+    </template>
+
     <div class="body-container">
         <div class="group-container">
 
             <div class="group-main-info">
-
-                <div class="group-header">
-                    <h2>Группа "Название"</h2>
-
-                    <div class="header-btns">
-                        <button class="blue">Написать пост</button>
-                        <button class="red">Отписаться</button>
-                    </div>
-                </div>
-
-                <div class="group-subs">
-                    <div class="people-icon"></div>
-                    <a>7 подписчиков</a>
-                </div>
-
-                <div class="group-subs">
-                    <a>Тип сообщества: закрытое</a>
-                </div>
-
-                <div class="group-admins">
-                    <h3>Администраторы</h3>
-                    <div class="admin">
-                        <div class="male-image"></div>
-                        <a>Имя админа</a>
-                    </div>     
-
-                    <div class="admin">
-                        <div class="female-image"></div>
-                        <a>Имя админа</a>
-                    </div>     
-                </div>
 
             </div>
 

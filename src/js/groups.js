@@ -32,5 +32,23 @@ groups.forEach(async element => {
         window.location.href = "./groupInfo.html";
     });
 
+    subBtn.addEventListener('click', () => {
+
+        if (communityConnection.Subscribe(element.id)) {
+            subBtn.classList.add('hidden');
+            unsubBtn.classList.remove('hidden');
+        }
+        
+    });
+
+    unsubBtn.addEventListener('click', () => {
+
+        if (communityConnection.Unsubscribe(element.id)) {
+            subBtn.classList.remove('hidden');
+            unsubBtn.classList.add('hidden');
+        }
+
+    });
+
     groupCont.appendChild(group);
 });

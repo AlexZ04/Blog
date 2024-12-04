@@ -3,7 +3,7 @@ import * as postConnection from "./connection/postConnection.js";
 import { checkToken } from "./tokenCheck.js";
 import { FILTER_SORTING } from "./constants.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
-
+import { TAG_MAP } from "./connection/tagConnection.js";
 
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
@@ -24,8 +24,6 @@ const postTemplate = await getTemplate('post_template'),
 
 var onlyMine = false;
 
-var tagsMap = new Map();
-
 checkURL();
 
 applyOnlyMineFilter.addEventListener('click', () => {
@@ -41,13 +39,9 @@ applyOnlyMineFilter.addEventListener('click', () => {
 
 const select = document.querySelector('.tag-select');
 
-var tagList = await tagConnection.GetTagList();
-
-tagList.forEach(element => {
+TAG_MAP.keys().forEach(element => {
     var option = document.createElement('option');
-    option.text = element.name;
-
-    tagsMap.set(element.name, element.id);
+    option.text = element;
 
     select.appendChild(option);
 });
@@ -78,7 +72,7 @@ function checkURL() {
 async function getPosts() {
     let tagsId = [];
     [...tags.selectedOptions].map(opt => opt.value).forEach(element => {
-        tagsId.push(tagsMap.get(element));
+        tagsId.push(TAG_MAP.get(element));
     });
 
     let sortValue;

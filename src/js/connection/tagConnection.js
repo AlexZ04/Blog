@@ -20,3 +20,10 @@ export async function GetTagList() {
         console.log(e);
     }
 }
+
+export var TAG_MAP = new Map();
+
+let tagList = await GetTagList();
+tagList.forEach(element => {
+    TAG_MAP.set(element.name, element.id);
+});
