@@ -1,5 +1,5 @@
 import * as communityConnection from "./connection/communityConnection.js";
-import { ROLES } from "./constants.js";
+import { RESULTS, ROLES } from "./constants.js";
 
 const groupTemplate = document.getElementById('group-small-template');
 const groupCont = document.querySelector('.group-container');
