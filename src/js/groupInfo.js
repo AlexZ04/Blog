@@ -13,7 +13,9 @@ const groupHeaderTemplate = document.getElementById('group_main_info_temp');
 const groupPostTemplate = document.getElementById('group_post_temp');
 const groupAdminTemplate = document.getElementById('group_admin_template');
 
-var communityInfo = await communityConnection.GetCommunityInfo(localStorage.getItem('group_id'));
+var groupId = localStorage.getItem('group_id');
+
+var communityInfo = await communityConnection.GetCommunityInfo(groupId);
 console.log(communityInfo);
 
 setHeader(communityInfo);
@@ -47,3 +49,5 @@ TAG_MAP.keys().forEach(element => {
 
     tagSelect.appendChild(option);
 });
+
+var posts = await communityConnection.GetCommunityPosts(groupId);

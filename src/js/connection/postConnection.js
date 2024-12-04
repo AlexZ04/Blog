@@ -24,17 +24,12 @@ export async function GetPostsList(tags, author, min, max, sorting, onlyMyCommun
     var url = API_URL + "/api/post" + `?${params.toString()}`;
 
     try {
-        var response;
-        if (!checkToken()) response = await fetch(url);
-        else {
-            response = await fetch(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem("access_token")}`
-                },
-            });
-            
-        }
+        var response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            },
+        });
 
         if (response.ok) {
             let data = await response.json();
