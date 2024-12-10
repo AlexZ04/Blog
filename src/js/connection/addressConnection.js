@@ -1,4 +1,5 @@
 import { API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function SearchAdress(parentObjectId, query) {
     const params = new URLSearchParams();
@@ -15,6 +16,9 @@ export async function SearchAdress(parentObjectId, query) {
             let data = await response.json();
 
             return data;
+        }
+        else {
+            Relocate(response.status);
         }
     }
     catch (e) {
@@ -36,6 +40,9 @@ export async function GetChain(objectGuid) {
             let data = await response.json();
 
             return data;
+        }
+        else {
+            Relocate(response.status);
         }
     }
     catch (e) {

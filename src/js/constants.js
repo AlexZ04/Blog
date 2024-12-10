@@ -12,4 +12,5 @@ export const ERRORS_PAGES = new Map([
     ["403", "forbid"],
     ["404", "notFound"],
     ["500", "internalServerError"],
+    ["401", "Unauthorized"],
 ]);

@@ -1,4 +1,5 @@
 import { API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function GetAuthorList() {
     var url = API_URL + "/api/author/list";
@@ -12,7 +13,7 @@ export async function GetAuthorList() {
             return authorJson;
         }
         else {
-            alert(response.status);
+            Relocate(response.status);
         }
 
     }
