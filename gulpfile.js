@@ -22,6 +22,7 @@ const lessFiles = [
     './src/styles/groups.less',
     './src/styles/groupInfo.less',
     './src/styles/error.less',
+    './src/styles/shake.less',
 ]
 
 function styles() {

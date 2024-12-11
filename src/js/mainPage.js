@@ -6,6 +6,7 @@ import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
 import { sendToast } from "./sendToast.js";
 import { UNAUTHORIZE_ERROR } from "./constants.js";
+import { delay } from "./delay.js";
 
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
@@ -31,6 +32,8 @@ checkURL();
 applyOnlyMineFilter.addEventListener('click', () => {
     if (!checkToken()) {
         sendToast(UNAUTHORIZE_ERROR);
+        applyOnlyMineFilter.classList.add('anim');
+        delay(500).then(() => applyOnlyMineFilter.classList.remove('anim'));
         return;
     }
 
