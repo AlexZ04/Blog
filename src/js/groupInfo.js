@@ -50,5 +50,7 @@ TAG_MAP.keys().forEach(element => {
     tagSelect.appendChild(option);
 });
 
-var posts = await communityConnection.GetCommunityPosts(groupId);
-console.log(posts)
+if (!communityInfo.isClosed) {
+    var posts = await communityConnection.GetCommunityPosts(groupId);
+    console.log(posts)
+}

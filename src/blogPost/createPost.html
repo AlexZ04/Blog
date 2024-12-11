@@ -7,11 +7,27 @@
 
     <script type="module" src="/src/js/loadHeader.js" defer></script>
     <script type="module" src="/src/js/navigation.js" defer></script>
+    <script type="module" src="/src/js/createPost.js" defer></script>
 
     <link rel="stylesheet" href="/build/style/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 </head>
 <body>
     <header id="header"></header>
+
+    <template id="adress_selection_template">
+        <div class="adress-select">
+            <p>Следующий элемент адреса</p>
+            <select class="select2">
+                <option>-</option>
+                
+            </select>
+        </div>
+    </template>
 
     <div class="body-container">
         <div class="create-post-cont">
@@ -65,15 +81,6 @@
                     <div class="level">
                         <div class="address">
                             <h3>Адрес</h3>
-                            <p>Субъект РФ</p>
-                            <select>
-                                <option>1</option>
-                            </select>
-
-                            <p>Город</p>
-                            <select>
-                                <option>1</option>
-                            </select>
                         </div>
                     </div>
 
