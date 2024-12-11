@@ -1,5 +1,7 @@
 import * as postConnection from "../js/connection/postConnection.js";
-import { RESULTS } from "../js/constants.js";
+import { RESULTS, UNAUTHORIZE_ERROR } from "../js/constants.js";
+import { checkToken } from "../js/tokenCheck.js";
+import { sendToast } from "../js/sendToast.js";
 
 export async function getTemplate(id) {
     var template;
@@ -39,8 +41,10 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
     post.querySelector('.post-comments').querySelector('a').textContent = data.commentsCount;
     post.querySelector('.post-likes-amount').textContent = data.likes;
 
-    post.querySelector('.like-btn').classList.add(data.hasLike ? 'liked' : 'no-liked');
-    post.querySelector('.like-btn').dataset.index = data.id;
+    var like = post.querySelector('.like-btn');
+
+    like.classList.add(data.hasLike ? 'liked' : 'no-liked');
+    like.dataset.index = data.id;
 
     if (data.image != null) {
         let image = postImageTemplate.content.cloneNode(true).querySelector('.post-image');
@@ -79,9 +83,13 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
         });
     }
 
-    var like = post.querySelector('.like-btn');
     var likesAmount = post.querySelector('.post-likes-amount');
     like.addEventListener('click', async () => {
+
+        if (!checkToken()) {
+            sendToast(UNAUTHORIZE_ERROR);
+            return;
+        }
 
         if (like.classList.contains('liked')) {
             if (await postConnection.DeleteLike(like.getAttribute("data-index")) === RESULTS.SUCCESS) {

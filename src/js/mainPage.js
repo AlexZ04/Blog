@@ -4,6 +4,8 @@ import { checkToken } from "./tokenCheck.js";
 import { FILTER_SORTING } from "./constants.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
+import { sendToast } from "./sendToast.js";
+import { UNAUTHORIZE_ERROR } from "./constants.js";
 
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
@@ -27,6 +29,11 @@ var onlyMine = false;
 checkURL();
 
 applyOnlyMineFilter.addEventListener('click', () => {
+    if (!checkToken()) {
+        sendToast(UNAUTHORIZE_ERROR);
+        return;
+    }
+
     if (applyOnlyMineFilter.classList.contains('blue')) {
         applyOnlyMineFilter.classList.remove('blue');
         onlyMine = false;
