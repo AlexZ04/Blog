@@ -1,11 +1,12 @@
 import * as addressConnection from "./connection/addressConnection.js";
+import * as communityConnection from "./connection/communityConnection.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
+import { ROLES } from "./constants.js";
 
-$(document).ready(function() {
-    $('.select2').select2();
-});
+const createPostBtn = document.getElementById('create_post_btn');
 
 const addressSelectionContainer = document.querySelector('.address');
+const groupSelect = document.querySelector('.group-select').querySelector('select');
 
 const adressSelectionTemplate = document.getElementById('adress_selection_template');
 
@@ -141,3 +142,28 @@ async function getOpt(parentId, query) {
 
     return addMap;
 }
+
+var groupsId = new Map();
+
+async function setCommunitites() {
+    var userGroups = await communityConnection.GetUserCommunities();
+
+    userGroups.forEach(async group => {
+        if (group.role === ROLES.Admin) {
+            var newOpt = document.createElement('option');
+    
+            var groupInfo = await communityConnection.GetCommunityInfo(group.communityId);
+            newOpt.textContent = groupInfo.name;
+            groupSelect.appendChild(newOpt);
+    
+            groupsId.set(groupInfo.name, group.communityId);
+        }
+    });
+
+}
+
+await setCommunitites();
+
+createPostBtn.addEventListener('click', () => {
+    
+});
