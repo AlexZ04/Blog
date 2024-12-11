@@ -17,12 +17,10 @@ export async function Register(fullName, password, email, birthDate, gender, pho
 
             return data.token;
         }
-        else {
-            alert(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -46,12 +44,10 @@ export async function LoginUser(email, pas){
         else if (response.status === 401) {
             resetToken();
         }
-        else {
-            alert(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -66,12 +62,10 @@ export async function Logout() {
         if (response.ok || response.status === 401) {
             resetToken();
         }
-        else {
-            alert(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -94,12 +88,10 @@ export async function GetProfile() {
         else if (response.status === 401) {
             return;
         }
-        else {
-            alert(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -119,12 +111,7 @@ export async function EditProfile(email, fullName, birthDate, gender, phoneNumbe
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        else if (response.status === 401) {
-            resetToken();
-        }
-        else {
-            return RESULTS.ERROR;
-        }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);

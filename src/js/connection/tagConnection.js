@@ -11,13 +11,10 @@ export async function GetTagList() {
 
             return tagJson;
         }
-        else {
-            alert(response.status);
-        }
-
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 

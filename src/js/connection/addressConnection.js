@@ -17,12 +17,10 @@ export async function SearchAdress(parentObjectId, query) {
 
             return data;
         }
-        else {
-            Relocate(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -41,11 +39,9 @@ export async function GetChain(objectGuid) {
 
             return data;
         }
-        else {
-            Relocate(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }

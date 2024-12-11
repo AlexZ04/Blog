@@ -1,4 +1,5 @@
 import { RESULTS, API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function GetCommunities() {
     var url = API_URL + '/api/community';
@@ -11,6 +12,7 @@ export async function GetCommunities() {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);
@@ -34,9 +36,10 @@ export async function GetUserCommunities() {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
     
 }
@@ -52,9 +55,10 @@ export async function GetCommunityInfo(id) {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
     
 }
@@ -88,9 +92,10 @@ export async function GetCommunityPosts(id, tags, sorting, page = 1, size = 5) {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -111,9 +116,10 @@ export async function CreatePost(id, title, description, readingTime, image, add
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -133,9 +139,10 @@ export async function GetGreatestRole(id) {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -154,6 +161,7 @@ export async function Subscribe(id) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
+        Relocate(response.status);
     }  
     catch (e) {
         console.log(e);
@@ -175,8 +183,9 @@ export async function Unsubscribe(id) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
+        Relocate(response.status);
     }  
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }

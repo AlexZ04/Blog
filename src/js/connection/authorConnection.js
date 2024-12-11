@@ -12,12 +12,9 @@ export async function GetAuthorList() {
 
             return authorJson;
         }
-        else {
-            Relocate(response.status);
-        }
-
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }

@@ -63,9 +63,10 @@ export async function CreatePost(title, description, readingTime, image, address
 
             return id;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -85,9 +86,10 @@ export async function GetPostInfo(id) {
 
             return data;
         }
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -105,10 +107,10 @@ export async function SetLike(postId) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        return RESULTS.ERROR;
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
@@ -126,9 +128,9 @@ export async function DeleteLike(postId) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        return RESULTS.ERROR;
+        Relocate(response.status);
     }
     catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }

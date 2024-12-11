@@ -1,4 +1,5 @@
 import { RESULTS, API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function GetReplies(id) {
     var url = API_URL + `/api/comment/${id}/tree`;
@@ -10,6 +11,9 @@ export async function GetReplies(id) {
             let data = await response.json();
 
             return data;
+        }
+        else {
+            Relocate(response.status);
         }
     }
     catch (e) {
@@ -36,7 +40,7 @@ export async function AddReply(id, content, parentId) {
             return RESULTS.SUCCESS;
         }
         else {
-            return RESULTS.ERROR;
+            Relocate();
         }
     }
     catch (e) {
@@ -61,7 +65,7 @@ export async function EditComment(id, content) {
             return RESULTS.SUCCESS;
         }
         else {
-            return RESULTS.ERROR;
+            Relocate();
         }
     }
     catch (e) {
@@ -85,7 +89,7 @@ export async function DeleteComment(id) {
             return RESULTS.SUCCESS;
         }
         else {
-            return RESULTS.ERROR;
+            Relocate();
         }
     }
     catch (e) {
