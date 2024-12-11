@@ -51,3 +51,4 @@ TAG_MAP.keys().forEach(element => {
 });
 
 var posts = await communityConnection.GetCommunityPosts(groupId);
+console.log(posts)

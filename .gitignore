@@ -1,3 +1,5 @@
 
 /node_modules
 /build
+src/lib/Toast/toast.min.css
+src/lib/Toast/toast.min.js

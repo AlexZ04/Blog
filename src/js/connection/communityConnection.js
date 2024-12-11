@@ -92,7 +92,7 @@ export async function GetCommunityPosts(id, tags, sorting, page = 1, size = 5) {
 
             return data;
         }
-        Relocate(response.status);
+        else if (response.status !== 403) Relocate(response.status);
     }
     catch (e) {
         console.error(e);

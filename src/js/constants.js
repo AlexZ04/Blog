@@ -6,6 +6,7 @@ export const API_URL = "https://blog.kreosoft.space";
 export const TOKEN_LIFETIME = 1800000;
 export const FILTER_SORTING = { CreateDesc: "CreateDesc", CreateAsc: "CreateAsc", LikeAsc: "LikeAsc", LikeDesc: "LikeDesc" };
 export const ROLES = { Admin: "Administrator", Sub: "Subscriber" };
+export const UNAUTHORIZE_ERROR = "Для выполнения этого действия необходима авторизация!";
 
 export const ERRORS_PAGES = new Map([
     ["400", "badRequest"],

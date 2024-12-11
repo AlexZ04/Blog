@@ -1,8 +1,10 @@
-import { ERRORS_PAGES } from "../constants.js";
+import { ERRORS_PAGES, UNAUTHORIZE_ERROR } from "../constants.js";
+import { sendToast } from "../sendToast.js";
 
 export function Relocate(code) {
+    console.log(code);
     if (ERRORS_PAGES.get(code) == "Unauthorized") {
-        alert();
+        sendToast(UNAUTHORIZE_ERROR);
         return;
     }
     window.location.href = `/src/errorsPages/${ERRORS_PAGES.get(code)}.html`;
