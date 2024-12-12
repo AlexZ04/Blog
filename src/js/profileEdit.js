@@ -2,7 +2,7 @@ import * as userConnection from "./connection/usersConnection.js";
 import { GENDERS, RESULTS } from "./constants.js";
 import * as validation from "./validation.js";
 import { delay } from "./delay.js";
-import { sendToast } from "./sendToast.js";
+import { sendToast, sendToastSaved } from "./sendToast.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const emailField = document.getElementById("edit_email");
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (res === RESULTS.SUCCESS) {
             localStorage.setItem("email", emailVal);
             document.getElementById('header_name').innerHTML = emailVal;
-            alert("Сохранено");
+            sendToastSaved("Сохранено!");
         }
         else {
             alert("Не-а");

@@ -7,3 +7,13 @@ export function sendToast(text) {
         interval: 2500
     });
 }
+
+export function sendToastSaved(text) {
+    new Toast({
+        title: "Уведомление",
+        text: text,
+        theme: 'success',
+        autohide: true,
+        interval: 1500
+    });
+}
