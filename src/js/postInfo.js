@@ -1,6 +1,5 @@
 import * as postConnection from "./connection/postConnection.js";
 import * as commentConnection from "./connection/commentConnection.js";
-import { RESULTS } from "./constants.js";
 import { getTemplate, getPostTemplate, formatToPostTime } from "../templatesWork/postTemplate.js";
 import { checkToken } from "./tokenCheck.js";
 
