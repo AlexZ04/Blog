@@ -47,7 +47,7 @@ regBtn.addEventListener('click', async () => {
         localStorage.setItem("email", inpEmail);
         localStorage.setItem("login_time", new Date());
 
-        localStorage.setItem("user_id", await usersConnection.GetProfile().id);
+        localStorage.setItem("user_id", await (await usersConnection.GetProfile()).id);
         
         window.location.href = '/index.html';
     }

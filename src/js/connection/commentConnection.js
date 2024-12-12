@@ -12,9 +12,7 @@ export async function GetReplies(id) {
 
             return data;
         }
-        else {
-            Relocate(response.status);
-        }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);
@@ -22,7 +20,7 @@ export async function GetReplies(id) {
 }
 
 export async function AddReply(id, content, parentId) {
-    var url = API_URL + `/api/comment/${id}/comment`;
+    var url = API_URL + `/api/post/${id}/comment`;
 
     var body = parentId ? JSON.stringify({ content, parentId }) : JSON.stringify({ content });
 
@@ -39,9 +37,7 @@ export async function AddReply(id, content, parentId) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        else {
-            Relocate();
-        }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);
@@ -64,9 +60,7 @@ export async function EditComment(id, content) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        else {
-            Relocate();
-        }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);
@@ -88,9 +82,7 @@ export async function DeleteComment(id) {
         if (response.ok) {
             return RESULTS.SUCCESS;
         }
-        else {
-            Relocate();
-        }
+        Relocate(response.status);
     }
     catch (e) {
         console.log(e);

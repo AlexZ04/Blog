@@ -6,6 +6,8 @@ import { checkToken } from "./tokenCheck.js";
 
 var postId = localStorage.getItem('post_info_id');
 
+const commentTextCreating = document.getElementById('comment_text_edit');
+
 const postsContainer = document.querySelector('.blog-block');
 const commentBlock = document.querySelector('.comment-block');
 
@@ -25,16 +27,12 @@ if (postInfo.addressId !== null) {
 
 function setPostInfo(data) {
     var post = getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, false, postAddress);
-
-    // var aaa = document.createElement('a');
-    // aaa.textContent = "aaaaaaaa";
-
-    // post(aaa);
     
     postsContainer.appendChild(post);
 }
 
 function setComments(comments) {
+    commentBlock.innerHTML = "";
     comments.forEach(element => {
         setOneCommentTemplate(element);
     });
@@ -130,14 +128,49 @@ function setCommentInfo(comment, commentInfo) {
     }
     
     var commentEditField = comment.querySelector('.edit-block');
+    var commentEditBtn = comment.querySelector('.edit-comment-btn');
+    commentEditBtn.dataset.id = commentInfo.id;
     comment.querySelector('.edit-icon').addEventListener('click', () => {
-        commentTextBlock.classList.add('hidden');
-        commentEditField.classList.remove('hidden');
+
+        if (commentTextBlock.classList.contains('hidden')) {
+            commentTextBlock.classList.remove('hidden');
+            commentEditField.classList.add('hidden');
+        }
+        else {
+            commentTextBlock.classList.add('hidden');
+            commentEditField.classList.remove('hidden');
+            
+            commentEditField.querySelector('input').value = commentInfo.content;
+        }
+
+        commentEditBtn.addEventListener('click', async () => {
+            var newText = commentEditField.querySelector('input').value;
+            await commentConnection.EditComment(commentEditBtn.dataset.id, newText);
+
+            commentTextBlock.querySelector('p').textContent = newText;
+            commentTextBlock.classList.remove('hidden');
+            commentEditField.classList.add('hidden');
+        });
+    });
+
+    var trash = comment.querySelector('.delete-icon');
+    trash.dataset.id = commentInfo.id;
+    trash.addEventListener('click', async () => {
+        await commentConnection.DeleteComment(trash.dataset.id);
+
+        var postInfo = await postConnection.GetPostInfo(postId);
+        setComments(postInfo.comments);
     });
     
     var commentReplyField = comment.querySelector('.reply-block');
     comment.querySelector('.write-reply').addEventListener('click', () => {
-        commentReplyField.classList.remove('hidden');
+        if (commentReplyField.classList.contains('hidden')) {
+            commentReplyField.classList.remove('hidden');
+        }
+        else {
+            commentReplyField.classList.add('hidden');
+        }
+        
     });
 }
 
@@ -153,3 +186,13 @@ if (localStorage.getItem('scroll_to_comments') == "1") {
     commentBlock.scrollIntoView({behavior: "smooth"});
     localStorage.setItem('scroll_to_comments', '0');
 }
+
+const sendCommetnBtn = document.getElementById('send_comment_btn');
+
+sendCommetnBtn.addEventListener('click', async () => {
+    await commentConnection.AddReply(postId, commentTextCreating.value);
+    commentTextCreating.value = "";
+
+    var postInfo = await postConnection.GetPostInfo(postId);
+    setComments(postInfo.comments);
+});
