@@ -63,7 +63,7 @@ async function setHeader(info) {
 
     if (userRole === ROLES.Sub) {
         subBtn.classList.add('hidden');
-        // writePost.classList.add('hidden');
+        writePost.classList.add('hidden');
     }
     else if (userRole === ROLES.Admin) {
         subBtn.classList.add('hidden');

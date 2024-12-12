@@ -32,7 +32,10 @@ function setPostInfo(data) {
 }
 
 function setComments(comments) {
+    var header = document.createElement('h3');
+    header.textContent = "Комментарии";
     commentBlock.innerHTML = "";
+    commentBlock.appendChild(header);
     comments.forEach(element => {
         setOneCommentTemplate(element);
     });
