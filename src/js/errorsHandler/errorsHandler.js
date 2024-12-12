@@ -6,5 +6,7 @@ export function Relocate(code) {
         sendToast(UNAUTHORIZE_ERROR);
         return;
     }
+
+    console.log(`/src/errorsPages/${ERRORS_PAGES.get(code)}.html`)
     window.location.href = `/src/errorsPages/${ERRORS_PAGES.get(code)}.html`;
 }

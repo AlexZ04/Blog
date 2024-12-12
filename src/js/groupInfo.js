@@ -3,6 +3,7 @@ import { GENDERS, FILTER_SORTING } from "./constants.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
+import { Relocate } from "./errorsHandler/errorsHandler.js";
 
 const groupMainInfoCont = document.querySelector('.group-main-info');
 const blogBlockCont = document.querySelector('.blog-block');

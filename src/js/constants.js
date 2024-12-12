@@ -10,8 +10,13 @@ export const UNAUTHORIZE_ERROR = "Для выполнения этого дей�
 
 export const ERRORS_PAGES = new Map([
     ["400", "badRequest"],
+    [400, "badRequest"],
     ["403", "forbid"],
+    [403, "forbid"],
     ["404", "notFound"],
+    [404, "notFound"],
     ["500", "internalServerError"],
+    [500, "internalServerError"],
     ["401", "Unauthorized"],
+    [401, "Unauthorized"],
 ]);
