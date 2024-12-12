@@ -3,6 +3,7 @@ import * as commentConnection from "./connection/commentConnection.js";
 import * as addressConnection from "./connection/addressConnection.js";
 import { getTemplate, getPostTemplate, formatToPostTime } from "../templatesWork/postTemplate.js";
 import { checkToken } from "./tokenCheck.js";
+import { sendToast } from "./sendToast.js";
 
 var postId = localStorage.getItem('post_info_id');
 
@@ -149,7 +150,12 @@ function setCommentInfo(comment, commentInfo) {
         }
 
         commentEditBtn.addEventListener('click', async () => {
-            var newText = commentEditField.querySelector('input').value;
+            var newText = commentEditField.querySelector('input').value.trim();
+
+            if (newText.length < 1 || newText.length > 1000) {
+                sendToast("Недопустимая длина комментария!");
+                return;
+            }
 
             if (commentEditField.querySelector('input').value !== commentTextBlock.querySelector('p').textContent) {
                 await commentConnection.EditComment(commentEditBtn.dataset.id, newText);
@@ -192,7 +198,13 @@ function setCommentInfo(comment, commentInfo) {
         }
         
         commentReplyBtn.addEventListener('click', async () => {
-            var replyText = commentReplyInputText.value;
+            var replyText = commentReplyInputText.value.trim();
+
+            if (replyText.length < 1 || replyText.length > 1000) {
+                sendToast("Недопустимая длина комментария!");
+                return;
+            }
+
             await commentConnection.AddReply(postId, replyText, commentReplyBtn.dataset.id);
             commentsAmount.textContent = Number(commentsAmount.textContent) + 1;
 
@@ -219,7 +231,14 @@ if (localStorage.getItem('scroll_to_comments') == "1") {
 const sendCommetnBtn = document.getElementById('send_comment_btn');
 
 sendCommetnBtn.addEventListener('click', async () => {
-    await commentConnection.AddReply(postId, commentTextCreating.value);
+    var text = commentTextCreating.value.trim();
+
+    if (text.length < 1 || text.length > 1000) {
+        sendToast("Недопустимая длина комментария!");
+        return;
+    }
+
+    await commentConnection.AddReply(postId, text);
     commentTextCreating.value = "";
 
     document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) + 1;
