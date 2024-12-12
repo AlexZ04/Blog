@@ -29,7 +29,7 @@ export async function GetChain(objectGuid) {
 
     if (objectGuid) params.append("objectGuid", objectGuid);
 
-    var url = API_URL + `/api/api/address/chain?${params}`;
+    var url = API_URL + `/api/address/chain?${params}`;
 
     try {
         let response = await fetch(url);

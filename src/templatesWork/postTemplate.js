@@ -1,4 +1,5 @@
 import * as postConnection from "../js/connection/postConnection.js";
+import * as addressConnection from "../js/connection/addressConnection.js";
 import { RESULTS, UNAUTHORIZE_ERROR } from "../js/constants.js";
 import { checkToken } from "../js/tokenCheck.js";
 import { sendToast } from "../js/sendToast.js";
@@ -22,7 +23,7 @@ export async function getTemplate(id) {
     return template;
 }
 
-export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, setRegirect = true) {
+export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, setRegirect = true, postAddress = []) {
 
     var post = postTemplate.content.cloneNode(true);
     post.querySelector('.post').dataset.index = data.id;
@@ -109,6 +110,21 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
             }
         }
     });
+
+    if (data.addressId) {
+        post.querySelector('.post-address').classList.remove('hidden');
+
+        var addressText = post.querySelector('.post-text-info');
+
+        postAddress.forEach(element => {
+            if (addressText.textContent) {
+                addressText.textContent += ", ";
+            }
+
+            addressText.textContent += element.text;
+        });
+
+    }
 
     return post;
 }

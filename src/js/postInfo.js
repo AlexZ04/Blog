@@ -1,5 +1,6 @@
 import * as postConnection from "./connection/postConnection.js";
 import * as commentConnection from "./connection/commentConnection.js";
+import * as addressConnection from "./connection/addressConnection.js";
 import { getTemplate, getPostTemplate, formatToPostTime } from "../templatesWork/postTemplate.js";
 import { checkToken } from "./tokenCheck.js";
 
@@ -16,9 +17,19 @@ const mainCommentTemplate = document.getElementById('main_comment_template');
 const childCommentTemplate = document.getElementById('child_comment_template');
 
 var postInfo = await postConnection.GetPostInfo(postId);
+var postAddress;
+
+if (postInfo.addressId !== null) {
+    var postAddress = await addressConnection.GetChain(postInfo.addressId);
+}
 
 function setPostInfo(data) {
-    var post = getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, false);
+    var post = getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, false, postAddress);
+
+    // var aaa = document.createElement('a');
+    // aaa.textContent = "aaaaaaaa";
+
+    // post(aaa);
     
     postsContainer.appendChild(post);
 }
