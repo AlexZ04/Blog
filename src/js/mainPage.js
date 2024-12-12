@@ -7,6 +7,7 @@ import { TAG_MAP } from "./connection/tagConnection.js";
 import { sendToast } from "./sendToast.js";
 import { UNAUTHORIZE_ERROR } from "./constants.js";
 import { delay } from "./delay.js";
+import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
 
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
@@ -26,6 +27,8 @@ const postTemplate = await getTemplate('post_template'),
     postTagsTemplate = await getTemplate('tag_template');
 
 var onlyMine = false;
+
+var pagesCount = 0;
 
 checkURL();
 
@@ -104,7 +107,10 @@ async function getPosts() {
             break;
     }
 
-    var res = await postConnection.GetPostsList(tagsId, author.value, timeStart.value, timeEnd.value, sortValue, onlyMine, 1, size.value);
+    var currentPage = 1;
+    if (document.querySelector('.active-page')) var currentPage = document.querySelector('.active-page').textContent;
+    
+    var res = await postConnection.GetPostsList(tagsId, author.value, timeStart.value, timeEnd.value, sortValue, onlyMine, currentPage, size.value);
 
     return res;
 }
@@ -115,10 +121,11 @@ async function setOnePost(data) {
     postsContainer.appendChild(post);
 }
 
-async function setAllPosts(getData) {
+export async function setAllPosts() {
     postsContainer.innerHTML = "";
 
     var res = await getPosts();
+    pagesCount = await res.pagination.count;
 
     res.posts.forEach(async element => {
         await setOnePost(element);
@@ -135,7 +142,7 @@ async function setAllPosts(getData) {
     
 }
 
-await setAllPosts(true);
+await setAllPosts();
 
 size.onchange = async function() {
     await setAllPosts(true);
@@ -149,3 +156,7 @@ $('.collapse').collapser({
 
     lockHide: true,
 });
+
+const paginationBtnsBlock = document.querySelector('.page-num-select');
+
+loadPaginationBlock(paginationBtnsBlock, 1, pagesCount);

@@ -17,6 +17,7 @@ const mainCommentTemplate = document.getElementById('main_comment_template');
 const childCommentTemplate = document.getElementById('child_comment_template');
 
 var postInfo = await postConnection.GetPostInfo(postId);
+console.log(postInfo)
 
 function setPostInfo(data) {
     var post = getPostTemplate(data, postTemplate, postImageTemplate, postTagsTemplate, false);
