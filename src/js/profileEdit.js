@@ -1,6 +1,8 @@
 import * as userConnection from "./connection/usersConnection.js";
 import { GENDERS, RESULTS } from "./constants.js";
 import * as validation from "./validation.js";
+import { delay } from "./delay.js";
+import { sendToast } from "./sendToast.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const emailField = document.getElementById("edit_email");
@@ -11,9 +13,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     var profileInfo = await userConnection.GetProfile();
 
-    emailField.value = profileInfo.email;
-    fullNameField.value = profileInfo.fullName;
-    phoneField.value = profileInfo.phoneNumber;
+    emailField.value = profileInfo.email.trim();
+    fullNameField.value = profileInfo.fullName.trim();
+    phoneField.value = profileInfo.phoneNumber.trim();
     dateField.value = profileInfo.birthDate.split('T')[0];
 
     if (profileInfo.gender === GENDERS.MALE) {
@@ -37,17 +39,50 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     saveBtn.addEventListener('click', async () => {
 
-        if (!validation.validPhone(phoneField.value)) {
-            alert("Телефон должен совподать с маской +7 (xxx) xxx-xx-xx");
+        var emailVal = emailField.value.trim();
+        var nameVal = fullNameField.value.trim();
+        var phoneVal = phoneField.value.trim();
+
+        if (emailVal.length < 1) {
+            emailField.classList.add('anim');
+            delay(500).then(() => emailField.classList.remove('anim'));
+            return;
+        }
+        else if (!validation.validEmail(emailVal) && emailVal) {
+            sendToast("Неверный email-адрес!");
+            emailField.style.transition = "2s ease-in";
+            emailField.style.border = "1px solid red";
+            delay(2000).then(() => emailField.style.border = "1px solid rgba(184, 191, 196, 0.4)");
             return;
         }
 
-        var res = await userConnection.EditProfile(emailField.value, fullNameField.value, dateField.value, 
-            genderField.value === "Мужской" ? GENDERS.MALE : GENDERS.FEMALE, phoneField.value);
+        if (!validation.validPhone(phoneVal) && phoneVal) {
+            sendToast("Неверный номер телефона!");
+            phoneField.style.transition = "2s ease-in";
+            phoneField.style.border = "1px solid red";
+            delay(2000).then(() => phoneField.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+            return;
+        }
+
+        if (nameVal.length < 1) {
+            fullNameField.classList.add('anim');
+            delay(500).then(() => fullNameField.classList.remove('anim'));
+            return;
+        }
+        else if (nameVal.length > 1000) {
+            sendToast("Слишком длинное имя");
+            fullNameField.style.transition = "2s ease-in";
+            fullNameField.style.border = "1px solid red";
+            delay(2000).then(() => fullNameField.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+            return;
+        }
+
+        var res = await userConnection.EditProfile(emailVal, nameVal, dateField.value, 
+            genderField.value === "Мужской" ? GENDERS.MALE : GENDERS.FEMALE, phoneVal);
 
         if (res === RESULTS.SUCCESS) {
-            localStorage.setItem("email", emailField.value);
-            document.getElementById('header_name').innerHTML = emailField.value;
+            localStorage.setItem("email", emailVal);
+            document.getElementById('header_name').innerHTML = emailVal;
             alert("Сохранено");
         }
         else {
