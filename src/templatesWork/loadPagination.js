@@ -1,6 +1,6 @@
 // import { setAllPosts } from "../js/mainPage.js";
 
-export function loadPaginationBlock(block, currentPage, pagesCount) {
+export function loadPaginationBlock(block, currentPage, pagesCount, setAllPosts) {
     block.innerHTML = "";
 
     if (pagesCount === 0) return;
@@ -15,7 +15,7 @@ export function loadPaginationBlock(block, currentPage, pagesCount) {
 
     var pagBtns = new Set([1, currentPage - 1, currentPage, Number(currentPage) + 1, pagesCount]);
 
-    if (currentPage === 1) pagBtns.add(currentPage + 2);
+    // if (currentPage === 1) pagBtns.add(currentPage + 2);
 
     var resBtns = [];
 
@@ -46,19 +46,19 @@ export function loadPaginationBlock(block, currentPage, pagesCount) {
 
     paginationBtns.forEach(element => {
         element.addEventListener('click', () => {
-            loadPaginationBlock(block, Number(element.textContent), pagesCount);
-            // setAllPosts();
+            loadPaginationBlock(block, Number(element.textContent), pagesCount, setAllPosts);
+            setAllPosts();
         });  
         
     });
 
     left.addEventListener('click', () => {
-        loadPaginationBlock(block, Math.max(1, currentPage - 1), pagesCount);
-        // setAllPosts();
+        loadPaginationBlock(block, Math.max(1, currentPage - 1), pagesCount, setAllPosts);
+        setAllPosts();
     });
 
     right.addEventListener('click', () => {
-        loadPaginationBlock(block, Math.min(pagesCount, currentPage + 1), pagesCount);
-        // setAllPosts();
+        loadPaginationBlock(block, Math.min(pagesCount, currentPage + 1), pagesCount, setAllPosts);
+        setAllPosts();
     });
 }

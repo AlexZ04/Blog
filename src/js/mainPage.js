@@ -29,6 +29,7 @@ const postTemplate = await getTemplate('post_template'),
 var onlyMine = false;
 
 var pagesCount = 0;
+var oldSizeValue = 5;
 
 checkURL();
 
@@ -125,7 +126,8 @@ export async function setAllPosts() {
     postsContainer.innerHTML = "";
 
     var res = await getPosts();
-    pagesCount = await res.pagination.count;
+    var pag = await res.pagination;
+    pagesCount = await pag.count;
 
     res.posts.forEach(async element => {
         await setOnePost(element);
@@ -139,13 +141,19 @@ export async function setAllPosts() {
     
         lockHide: true,
     });
+
+    size.scrollIntoView({behavior: "smooth"});
     
 }
 
 await setAllPosts();
 
 size.onchange = async function() {
-    await setAllPosts(true);
+    var currentPage = Math.ceil(Number(document.querySelector('.active-page').textContent) * oldSizeValue * 1.0 / size.value);
+    loadPaginationBlock(paginationBtnsBlock, currentPage, pagesCount, setAllPosts);
+    oldSizeValue = size.value;
+    await setAllPosts();
+    loadPaginationBlock(paginationBtnsBlock, currentPage, pagesCount, setAllPosts);
 };
 
 $('.collapse').collapser({
@@ -159,4 +167,4 @@ $('.collapse').collapser({
 
 const paginationBtnsBlock = document.querySelector('.page-num-select');
 
-loadPaginationBlock(paginationBtnsBlock, 1, pagesCount);
+loadPaginationBlock(paginationBtnsBlock, 1, pagesCount, setAllPosts);

@@ -1,5 +1,5 @@
 import * as communityConnection from "./connection/communityConnection.js";
-import { GENDERS } from "./constants.js";
+import { GENDERS, FILTER_SORTING } from "./constants.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
@@ -8,6 +8,9 @@ const groupMainInfoCont = document.querySelector('.group-main-info');
 const blogBlockCont = document.querySelector('.blog-block');
 
 const tagSelect = document.getElementById('tags_filter');
+const sort = document.getElementById('sort_filter');
+
+const sizeFilter = document.querySelector('.size-filter');
 
 const groupHeaderTemplate = document.getElementById('group_main_info_temp');
 const groupPostTemplate = document.getElementById('group_post_temp');
@@ -59,7 +62,44 @@ if (!communityInfo.isClosed) {
     var pagination = await postsInfo.pagination;
 
     const paginContainer = document.querySelector('.page-num-select');
-    loadPaginationBlock(paginContainer, 1, pagination.count);
+    loadPaginationBlock(paginContainer, 1, pagination.count, setPosts);
+
+    posts.forEach(element => {
+        blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
+    });
+}
+
+async function setPosts() {
+    blogBlockCont.innerHTML = "";
+
+    let tagsId = [];
+    [...tagSelect.selectedOptions].map(opt => opt.value).forEach(element => {
+        tagsId.push(TAG_MAP.get(element));
+    });
+
+    let sortValue;
+    switch (sort.value) {
+        case "По дате создания (сначала новые)":
+            sortValue = FILTER_SORTING.CreateDesc;
+            break;
+        case "По дате создания (сначала старые)":
+            sortValue = FILTER_SORTING.CreateAsc;
+            break;
+        case "По количеству лайков (по убыванию)":
+            sortValue = FILTER_SORTING.LikeDesc;
+            break;
+        case "По количеству лайков (по возрастанию)":
+            sortValue = FILTER_SORTING.LikeAsc;
+            break;
+        default:
+            sortValue = false;
+            break;
+    }
+
+    console.log(tagsId)
+
+    var postsInfo = await communityConnection.GetCommunityPosts(groupId, tagsId, sortValue, 1, 5);
+    var posts = await postsInfo.posts;
 
     posts.forEach(element => {
         blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
