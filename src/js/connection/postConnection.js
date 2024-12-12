@@ -47,10 +47,9 @@ export async function CreatePost(title, description, readingTime, image, address
 
     var body = JSON.stringify({title, description, readingTime, image, addressId, tags});
 
-    if (image) body.append(image);
-
     try {
         let response = await fetch(url, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`

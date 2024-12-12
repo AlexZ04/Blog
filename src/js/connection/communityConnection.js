@@ -106,6 +106,7 @@ export async function CreatePost(id, title, description, readingTime, image, add
 
     try {
         let response = await fetch(url, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -114,7 +115,9 @@ export async function CreatePost(id, title, description, readingTime, image, add
         });
 
         if (response.ok) {
-            return RESULTS.SUCCESS;
+            let id = await data.json();
+
+            return id;
         }
         Relocate(response.status);
     }

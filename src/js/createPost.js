@@ -1,7 +1,19 @@
 import * as addressConnection from "./connection/addressConnection.js";
 import * as communityConnection from "./connection/communityConnection.js";
+import * as postConnection from "./connection/postConnection.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
 import { ROLES } from "./constants.js";
+import { delay } from "./delay.js";
+import { checkToken } from "./tokenCheck.js";
+
+checkToken();
+
+const postName = document.getElementById('post_name');
+const postTime = document.getElementById('post_time');
+const postGroup = document.getElementById('post_group');
+const postTags = document.getElementById('tags_filter');
+const postImage = document.getElementById('post_image');
+const postDescription = document.getElementById('post_description');
 
 const createPostBtn = document.getElementById('create_post_btn');
 
@@ -31,6 +43,7 @@ async function setSelect(parentId, query) {
             var newOption = document.createElement('option');
             newOption.textContent = element.text;
             newOption.dataset.index = element.objectId;
+            newOption.dataset.guid = element.objectGuid;
             newOption.dataset.objectLevel = element.objectLevelText;
 
             newOptGroup.appendChild(newOption);
@@ -119,6 +132,7 @@ async function updateOptions(select, text) {
             var newOption = document.createElement('option');
             newOption.textContent = element.text;
             newOption.dataset.index = element.objectId;
+            newOption.dataset.guid = element.objectGuid;
             newOption.dataset.objectLevel = element.objectLevelText;
 
             newOptGroup.appendChild(newOption);
@@ -149,7 +163,7 @@ async function setCommunitites() {
     var userGroups = await communityConnection.GetUserCommunities();
 
     userGroups.forEach(async group => {
-        if (group.role === ROLES.Sub) {
+        if (group.role === ROLES.Admin) {
             var newOpt = document.createElement('option');
     
             var groupInfo = await communityConnection.GetCommunityInfo(group.communityId);
@@ -170,6 +184,57 @@ async function setCommunitites() {
 
 await setCommunitites();
 
-createPostBtn.addEventListener('click', () => {
+createPostBtn.addEventListener('click', async () => {
+    let flag = true;
+
+    let tagsId = [];
+    [...postTags.selectedOptions].map(opt => opt.value).forEach(element => {
+        tagsId.push(TAG_MAP.get(element));
+    });
+
+    let name = postName.value.trim();
+    let time = postTime.value.trim();
+    let group = postGroup.value;
+    let image = postImage.value.trim();
+    let descr = postDescription.value.trim();
+    let lastAddId;
     
+    if (!name) {
+        flag = false;
+        postName.classList.add('red-border');
+        delay(1000).then(() => postName.classList.remove('red-border'));
+    }
+
+    if (!time) {
+        flag = false;
+        postTime.classList.add('red-border');
+        delay(1000).then(() => postTime.classList.remove('red-border'));
+    }
+
+    if (!descr) {
+        flag = false;
+        postDescription.classList.add('red-border');
+        delay(1000).then(() => postDescription.classList.remove('red-border'));
+    }
+
+    var lastAddress = addressSelectionContainer.lastElementChild.previousElementSibling.querySelector('select');
+
+    if (lastAddress) {
+        lastAddId = lastAddress.options[lastAddress.selectedIndex].dataset.guid;
+    }
+    
+    var postId;
+
+    if (group !== "Без группы" && flag) {
+        var groupId = groupsId.get(group);
+
+        postId = await communityConnection.CreatePost(groupId, name, descr, time, image, lastAddId, tagsId);
+    }
+    else if (flag) {
+        postId = await postConnection.CreatePost(name, descr, time, image, lastAddId, tagsId);
+    }
+
+    if (postId) {
+        window.location.href = "";
+    }
 });

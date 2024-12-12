@@ -111,7 +111,7 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
         }
     });
 
-    if (data.addressId) {
+    if (postAddress.length > 0) {
         post.querySelector('.post-address').classList.remove('hidden');
 
         var addressText = post.querySelector('.post-text-info');
