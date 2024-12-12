@@ -81,6 +81,8 @@ function setOneReplyComment(reply) {
 function setCommentInfo(comment, commentInfo) {
     var commentTextBlock = comment.querySelector('.text-block');
 
+    var commentsAmount = document.querySelector('.post-comments-amount');
+
     if (!commentInfo.deleteDate) {
         comment.querySelector('.comment-head').querySelector('a').textContent = commentInfo.author;
         commentTextBlock.querySelector('p').textContent = commentInfo.content;
@@ -145,9 +147,17 @@ function setCommentInfo(comment, commentInfo) {
 
         commentEditBtn.addEventListener('click', async () => {
             var newText = commentEditField.querySelector('input').value;
-            await commentConnection.EditComment(commentEditBtn.dataset.id, newText);
 
-            commentTextBlock.querySelector('p').textContent = newText;
+            if (commentEditField.querySelector('input').value !== commentTextBlock.querySelector('p').textContent) {
+                await commentConnection.EditComment(commentEditBtn.dataset.id, newText);
+                commentTextBlock.querySelector('p').textContent = newText;
+
+                const date = new Date();
+                date.setHours(date.getHours() + 7);
+
+                commentModDateField.value = formatToPostTime(date.toISOString());
+            }
+
             commentTextBlock.classList.remove('hidden');
             commentEditField.classList.add('hidden');
         });
@@ -158,16 +168,14 @@ function setCommentInfo(comment, commentInfo) {
     trash.addEventListener('click', async () => {
         await commentConnection.DeleteComment(trash.dataset.id);
 
-        document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) - 1;
+        commentsAmount.textContent = Number(commentsAmount.textContent) - 1;
 
         var postInfo = await postConnection.GetPostInfo(postId);
         setComments(postInfo.comments);
     });
     
     var commentReplyField = comment.querySelector('.reply-block');
-    var commentReplyBtn = comment.querySelector('.add-reply-to-main');
-
-    if (commentReplyBtn)
+    var commentReplyBtn = commentReplyField.querySelector('.add-reply-to-main');
     commentReplyBtn.dataset.id = commentInfo.id;
 
     var commentReplyInputText = commentReplyField.querySelector('.reply-comment-input');
@@ -183,7 +191,7 @@ function setCommentInfo(comment, commentInfo) {
         commentReplyBtn.addEventListener('click', async () => {
             var replyText = commentReplyInputText.value;
             await commentConnection.AddReply(postId, replyText, commentReplyBtn.dataset.id);
-            document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) + 1;
+            commentsAmount.textContent = Number(commentsAmount.textContent) + 1;
 
             var postInfo = await postConnection.GetPostInfo(postId);
             setComments(postInfo.comments);
