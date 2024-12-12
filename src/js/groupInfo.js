@@ -1,10 +1,10 @@
 import * as communityConnection from "./connection/communityConnection.js";
-import * as tagConnection from "./connection/tagConnection.js";
 import { GENDERS } from "./constants.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
+import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
+import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
 
 const groupMainInfoCont = document.querySelector('.group-main-info');
-const groupFilterCont = document.querySelector('.group-tags');
 const blogBlockCont = document.querySelector('.blog-block');
 
 const tagSelect = document.getElementById('tags_filter');
@@ -13,10 +13,13 @@ const groupHeaderTemplate = document.getElementById('group_main_info_temp');
 const groupPostTemplate = document.getElementById('group_post_temp');
 const groupAdminTemplate = document.getElementById('group_admin_template');
 
+const postTemplate = await getTemplate('post_template'), 
+    postImageTemplate = await getTemplate('post_image_template'),
+    postTagsTemplate = await getTemplate('tag_template');
+
 var groupId = localStorage.getItem('group_id');
 
 var communityInfo = await communityConnection.GetCommunityInfo(groupId);
-console.log(communityInfo);
 
 setHeader(communityInfo);
 
@@ -51,6 +54,14 @@ TAG_MAP.keys().forEach(element => {
 });
 
 if (!communityInfo.isClosed) {
-    var posts = await communityConnection.GetCommunityPosts(groupId);
-    console.log(posts)
+    var postsInfo = await communityConnection.GetCommunityPosts(groupId);
+    var posts = await postsInfo.posts;
+    var pagination = await postsInfo.pagination;
+
+    const paginContainer = document.querySelector('.page-num-select');
+    loadPaginationBlock(paginContainer, 1, pagination.count);
+
+    posts.forEach(element => {
+        blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
+    });
 }

@@ -70,7 +70,7 @@ if (checkToken()) {
 }
 
 applyFiltersBtn.addEventListener('click', async () => {
-    setAllPosts(true);
+    setAllPosts();
 });
 
 function checkURL() {
