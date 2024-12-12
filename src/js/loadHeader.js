@@ -87,6 +87,7 @@ function addSelectionMenu() {
     });
 }
 
+checkAuth();
 
 async function checkAuth() {
     var res = checkToken();
