@@ -1,5 +1,3 @@
-// import { setAllPosts } from "../js/mainPage.js";
-
 export function loadPaginationBlock(block, currentPage, pagesCount, setAllPosts) {
     block.innerHTML = "";
 
@@ -14,8 +12,6 @@ export function loadPaginationBlock(block, currentPage, pagesCount, setAllPosts)
     right.textContent = '⭢';
 
     var pagBtns = new Set([1, currentPage - 1, currentPage, Number(currentPage) + 1, pagesCount]);
-
-    // if (currentPage === 1) pagBtns.add(currentPage + 2);
 
     var resBtns = [];
 
@@ -48,7 +44,6 @@ export function loadPaginationBlock(block, currentPage, pagesCount, setAllPosts)
         element.addEventListener('click', () => {
             loadPaginationBlock(block, Number(element.textContent), pagesCount, setAllPosts);
             setAllPosts();
-            
         });  
         
     });

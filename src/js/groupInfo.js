@@ -1,5 +1,5 @@
 import * as communityConnection from "./connection/communityConnection.js";
-import { GENDERS, FILTER_SORTING } from "./constants.js";
+import { GENDERS, FILTER_SORTING, ROLES } from "./constants.js";
 import { TAG_MAP } from "./connection/tagConnection.js";
 import { getTemplate, getPostTemplate } from "../templatesWork/postTemplate.js";
 import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
@@ -29,14 +29,17 @@ var oldSizeValue = 5;
 var pagesCount = 0;
 
 var communityInfo = await communityConnection.GetCommunityInfo(groupId);
+var userRole = await communityConnection.GetGreatestRole(communityInfo.id);
 
-setHeader(communityInfo);
+await setHeader(communityInfo);
 
-function setHeader(info) {
+async function setHeader(info) {
     var groupHeader = groupHeaderTemplate.content.cloneNode(true);
 
     groupHeader.querySelector('.group-header').querySelector('h2').textContent = info.name;
-    groupHeader.querySelector('.group-subs').querySelector('a').textContent = info.subscribersCount + " подписчиков";
+
+    var subsAmountText = groupHeader.querySelector('.group-subs').querySelector('a')
+    subsAmountText.textContent = info.subscribersCount + " подписчиков";
 
     let communityType = info.isClosed ? "закрытое" : "открытое";
 
@@ -52,6 +55,56 @@ function setHeader(info) {
         groupAdminsCont.appendChild(admin);
     });
 
+    var userRole = await communityConnection.GetGreatestRole(info.id);
+
+    var subBtn = groupHeader.querySelector('.sub');
+    var unsubBtn = groupHeader.querySelector('.unsub');
+    var writePost = groupHeader.querySelector('.write-post');
+
+    if (userRole === ROLES.Sub) {
+        subBtn.classList.add('hidden');
+        // writePost.classList.add('hidden');
+    }
+    else if (userRole === ROLES.Admin) {
+        subBtn.classList.add('hidden');
+        unsubBtn.classList.add('hidden');
+    }
+    else {
+        unsubBtn.classList.add('hidden');
+        writePost.classList.add('hidden');
+    }
+
+    writePost.addEventListener('click', () => {
+        localStorage.setItem('create_post_group_name', info.name);
+        window.location.href = "../blogPost/createPost.html";
+    });
+
+    subBtn.addEventListener('click', async () => {
+        if (await communityConnection.Subscribe(info.id)) {
+            subBtn.classList.add('hidden');
+            unsubBtn.classList.remove('hidden');
+
+            subsAmountText.textContent = Number(subsAmountText.textContent.split(" ")[0]) + 1 + " подписчиков";
+
+            document.querySelector('.group-tags').classList.remove('hidden');
+            document.querySelector('.blog-block').classList.remove('hidden');
+            document.querySelector('.pagination-block').classList.remove('hidden');
+        }
+    });
+
+    unsubBtn.addEventListener('click', async () => {
+        if (await communityConnection.Unsubscribe(info.id)) {
+            subBtn.classList.remove('hidden');
+            unsubBtn.classList.add('hidden');
+
+            subsAmountText.textContent = Number(subsAmountText.textContent.split(" ")[0]) - 1 + " подписчиков";
+
+            document.querySelector('.group-tags').classList.add('hidden');
+            document.querySelector('.blog-block').classList.add('hidden');
+            document.querySelector('.pagination-block').classList.add('hidden');
+        }
+    });
+
     groupMainInfoCont.appendChild(groupHeader);
 }
 
@@ -62,7 +115,7 @@ TAG_MAP.keys().forEach(element => {
     tagSelect.appendChild(option);
 });
 
-if (!communityInfo.isClosed) {
+if (!communityInfo.isClosed || userRole === ROLES.Sub || userRole === ROLES.Admin) {
     var postsInfo = await communityConnection.GetCommunityPosts(groupId);
     var posts = await postsInfo.posts;
     var pagination = await postsInfo.pagination;
@@ -72,6 +125,10 @@ if (!communityInfo.isClosed) {
     posts.forEach(element => {
         blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
     });
+}
+else {
+    document.querySelector('.pagination-block').classList.add('hidden');
+    document.querySelector('.group-tags').classList.add('hidden');
 }
 
 async function setPosts() {
@@ -102,7 +159,7 @@ async function setPosts() {
     }
 
     var currentPage = 1;
-    if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
+    // if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
 
     var postsInfo = await communityConnection.GetCommunityPosts(groupId, tagsId, sortValue, currentPage, sizeFilter.value);
     var posts = await postsInfo.posts;
@@ -114,10 +171,16 @@ async function setPosts() {
     posts.forEach(element => {
         blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
     });
+
+    if (localStorage.getItem('start_from_first_page') === '1') {
+        loadPaginationBlock(paginContainer, 1, pagesCount, setPosts);
+        localStorage.setItem('start_from_first_page', '0');
+    }
 }
 
-applyFiltersBtn.addEventListener('click', () => {
-    setPosts();
+applyFiltersBtn.addEventListener('click', async () => {
+    localStorage.setItem('start_from_first_page', '1');
+    await setPosts();
 });
 
 sizeFilter.onchange = async function() {

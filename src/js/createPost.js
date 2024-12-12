@@ -149,17 +149,23 @@ async function setCommunitites() {
     var userGroups = await communityConnection.GetUserCommunities();
 
     userGroups.forEach(async group => {
-        if (group.role === ROLES.Admin) {
+        if (group.role === ROLES.Sub) {
             var newOpt = document.createElement('option');
     
             var groupInfo = await communityConnection.GetCommunityInfo(group.communityId);
             newOpt.textContent = groupInfo.name;
             groupSelect.appendChild(newOpt);
+
+            if (localStorage.getItem('create_post_group_name') && localStorage.getItem('create_post_group_name') === groupInfo.name) {
+                groupSelect.value = localStorage.getItem('create_post_group_name');
+                localStorage.removeItem('create_post_group_name');
+            }
     
             groupsId.set(groupInfo.name, group.communityId);
         }
     });
 
+    
 }
 
 await setCommunitites();

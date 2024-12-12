@@ -12,6 +12,8 @@ import { loadPaginationBlock } from "../templatesWork/loadPagination.js";
 const applyOnlyMineFilter = document.getElementById('apply_only_mine_filter');
 const applyFiltersBtn = document.getElementById('apply_filters_btn');
 
+const paginationBtnsBlock = document.querySelector('.page-num-select');
+
 const bodyContainer = document.querySelector('.body-elem-container');
 const postsContainer = document.querySelector('.blog-block');
 
@@ -71,7 +73,8 @@ if (checkToken()) {
 }
 
 applyFiltersBtn.addEventListener('click', async () => {
-    setAllPosts();
+    localStorage.setItem('start_from_first_page', '1');
+    await setAllPosts();
 });
 
 function checkURL() {
@@ -142,6 +145,12 @@ export async function setAllPosts() {
     
         lockHide: true,
     });
+
+    if (localStorage.getItem('start_from_first_page') === '1') {
+        loadPaginationBlock(paginationBtnsBlock, 1, pagesCount, setAllPosts);
+        localStorage.setItem('start_from_first_page', '0');
+    }
+    
 }
 
 await setAllPosts();
@@ -163,7 +172,5 @@ $('.collapse').collapser({
 
     lockHide: true,
 });
-
-const paginationBtnsBlock = document.querySelector('.page-num-select');
 
 loadPaginationBlock(paginationBtnsBlock, 1, pagesCount, setAllPosts);
