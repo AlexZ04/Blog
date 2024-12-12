@@ -4,13 +4,17 @@ import { Relocate } from "../errorsHandler/errorsHandler.js";
 export async function Register(fullName, password, email, birthDate, gender, phoneNumber) {
     var url = API_URL + "/api/account/register";
 
+    var body;
+    if (birthDate) body = JSON.stringify({fullName, password, email, birthDate, gender, phoneNumber});
+    else body = JSON.stringify({fullName, password, email, gender, phoneNumber});
+
     try {
         let response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({fullName, password, email, birthDate, gender, phoneNumber})
+            body: body
         });
 
         if (response.ok) {
@@ -99,6 +103,10 @@ export async function GetProfile() {
 export async function EditProfile(email, fullName, birthDate, gender, phoneNumber) {
     var url = API_URL + "/api/account/profile";
 
+    var body;
+    if (birthDate) body = JSON.stringify({email, fullName, birthDate, gender, phoneNumber});
+    else body = JSON.stringify({email, fullName, gender, phoneNumber});
+
     try {
         let response = await fetch(url, {
             method: 'PUT',
@@ -106,7 +114,7 @@ export async function EditProfile(email, fullName, birthDate, gender, phoneNumbe
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`
             },
-            body: JSON.stringify({email, fullName, birthDate, gender, phoneNumber})
+            body: body
         });
 
         if (response.ok) {
