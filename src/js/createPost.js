@@ -200,7 +200,7 @@ createPostBtn.addEventListener('click', async () => {
     let descr = postDescription.value.trim();
     let lastAddId;
     
-    if (!name || name.length < 5) {
+    if (!name || name.length < 5 || name.length > 1000) {
         flag = false;
 
         postName.style.transition = "2s ease-in";
@@ -208,7 +208,10 @@ createPostBtn.addEventListener('click', async () => {
         delay(2000).then(() => postName.style.border = "1px solid rgba(184, 191, 196, 0.4)");
 
         if (!name) sendToast("Заголовок поста не может быть пустым!");
-        else sendToast("Минимальное количество символов в заголовке поста: 5!");
+        else if (name.length < 5) sendToast("Минимальное количество символов в заголовке поста: 5!");
+        else sendToast("Максимальное количество символов в заголовке поста: 1000!");
+
+        return;
     }
 
     if (!time) {
@@ -217,9 +220,11 @@ createPostBtn.addEventListener('click', async () => {
         postTime.style.border = "1px solid red";
         delay(2000).then(() => postTime.style.border = "1px solid rgba(184, 191, 196, 0.4)");
         sendToast("Текст поста не может быть пустым!");
+
+        return;
     }
 
-    if (!descr || descr.length < 5) {
+    if (!descr || descr.length < 5 || descr.length > 5000) {
         flag = false;
 
         postDescription.style.transition = "2s ease-in";
@@ -227,7 +232,34 @@ createPostBtn.addEventListener('click', async () => {
         delay(2000).then(() => postDescription.style.border = "1px solid rgba(184, 191, 196, 0.4)");
         
         if (!descr) sendToast("Поле времени не может быть пустым!");
-        else sendToast("Минимальное количество символов в тексте поста: 5!");
+        else if (descr.length < 5) sendToast("Минимальное количество символов в тексте поста: 5!");
+        else sendToast("Максимальное количество символов в тексте поста: 5000!");
+
+        return;
+    }
+
+    if (tagsId.length === 0) {
+        flag = false;
+
+        postTags.style.transition = "2s ease-in";
+        postTags.style.border = "1px solid red";
+        delay(2000).then(() => postTags.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+
+        sendToast("Должен быть выбран хотя бы 1 тег!");
+
+        return;
+    }
+
+    if (image.length > 1000) {
+        flag = false;
+
+        postImage.style.transition = "2s ease-in";
+        postImage.style.border = "1px solid red";
+        delay(2000).then(() => postImage.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+
+        sendToast("Максимальная длина ссылки на изображение: 1000 символов!");
+
+        return;
     }
 
     var lastAddress = addressSelectionContainer.lastElementChild.previousElementSibling.querySelector('select');
