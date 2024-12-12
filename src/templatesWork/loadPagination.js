@@ -48,6 +48,7 @@ export function loadPaginationBlock(block, currentPage, pagesCount, setAllPosts)
         element.addEventListener('click', () => {
             loadPaginationBlock(block, Number(element.textContent), pagesCount, setAllPosts);
             setAllPosts();
+            
         });  
         
     });

@@ -109,7 +109,7 @@ async function getPosts() {
     }
 
     var currentPage = 1;
-    if (document.querySelector('.active-page')) var currentPage = document.querySelector('.active-page').textContent;
+    if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
     
     var res = await postConnection.GetPostsList(tagsId, author.value, timeStart.value, timeEnd.value, sortValue, onlyMine, currentPage, size.value);
 
@@ -123,6 +123,7 @@ async function setOnePost(data) {
 }
 
 export async function setAllPosts() {
+    applyFiltersBtn.scrollIntoView( { behavior: 'smooth'} );
     postsContainer.innerHTML = "";
 
     var res = await getPosts();
@@ -141,9 +142,6 @@ export async function setAllPosts() {
     
         lockHide: true,
     });
-
-    size.scrollIntoView({behavior: "smooth"});
-    
 }
 
 await setAllPosts();
@@ -154,6 +152,7 @@ size.onchange = async function() {
     oldSizeValue = size.value;
     await setAllPosts();
     loadPaginationBlock(paginationBtnsBlock, currentPage, pagesCount, setAllPosts);
+    size.scrollIntoView({behavior: "smooth"});
 };
 
 $('.collapse').collapser({

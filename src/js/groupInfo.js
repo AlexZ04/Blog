@@ -10,7 +10,11 @@ const blogBlockCont = document.querySelector('.blog-block');
 const tagSelect = document.getElementById('tags_filter');
 const sort = document.getElementById('sort_filter');
 
-const sizeFilter = document.querySelector('.size-filter');
+const sizeFilter = document.getElementById('size-filter');
+
+var applyFiltersBtn = document.getElementById('apply_filters_btn_group');
+
+const paginContainer = document.querySelector('.page-num-select');
 
 const groupHeaderTemplate = document.getElementById('group_main_info_temp');
 const groupPostTemplate = document.getElementById('group_post_temp');
@@ -21,6 +25,8 @@ const postTemplate = await getTemplate('post_template'),
     postTagsTemplate = await getTemplate('tag_template');
 
 var groupId = localStorage.getItem('group_id');
+var oldSizeValue = 5;
+var pagesCount = 0;
 
 var communityInfo = await communityConnection.GetCommunityInfo(groupId);
 
@@ -61,7 +67,6 @@ if (!communityInfo.isClosed) {
     var posts = await postsInfo.posts;
     var pagination = await postsInfo.pagination;
 
-    const paginContainer = document.querySelector('.page-num-select');
     loadPaginationBlock(paginContainer, 1, pagination.count, setPosts);
 
     posts.forEach(element => {
@@ -70,7 +75,7 @@ if (!communityInfo.isClosed) {
 }
 
 async function setPosts() {
-    blogBlockCont.innerHTML = "";
+    applyFiltersBtn.scrollIntoView( { behavior: 'smooth'} );
 
     let tagsId = [];
     [...tagSelect.selectedOptions].map(opt => opt.value).forEach(element => {
@@ -96,12 +101,30 @@ async function setPosts() {
             break;
     }
 
-    console.log(tagsId)
+    var currentPage = 1;
+    if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
 
-    var postsInfo = await communityConnection.GetCommunityPosts(groupId, tagsId, sortValue, 1, 5);
+    var postsInfo = await communityConnection.GetCommunityPosts(groupId, tagsId, sortValue, currentPage, sizeFilter.value);
     var posts = await postsInfo.posts;
+    var pag = await postsInfo.pagination;
+    pagesCount = await pag.count;
+
+    blogBlockCont.innerHTML = "";
 
     posts.forEach(element => {
         blogBlockCont.appendChild(getPostTemplate(element, postTemplate, postImageTemplate, postTagsTemplate));
     });
 }
+
+applyFiltersBtn.addEventListener('click', () => {
+    setPosts();
+});
+
+sizeFilter.onchange = async function() {
+    var currentPage = Math.ceil(Number(document.querySelector('.active-page').textContent) * oldSizeValue * 1.0 / sizeFilter.value);
+    loadPaginationBlock(paginContainer, currentPage, pagesCount, setPosts);
+    oldSizeValue = sizeFilter.value;
+    await setPosts();
+    loadPaginationBlock(paginContainer, currentPage, pagesCount, setPosts);
+    sizeFilter.scrollIntoView({behavior: "smooth"});
+};
