@@ -5,6 +5,7 @@ import { TAG_MAP } from "./connection/tagConnection.js";
 import { ROLES } from "./constants.js";
 import { delay } from "./delay.js";
 import { checkToken } from "./tokenCheck.js";
+import { sendToast } from "./sendToast.js";
 
 checkToken();
 
@@ -199,22 +200,34 @@ createPostBtn.addEventListener('click', async () => {
     let descr = postDescription.value.trim();
     let lastAddId;
     
-    if (!name) {
+    if (!name || name.length < 5) {
         flag = false;
-        postName.classList.add('red-border');
-        delay(1000).then(() => postName.classList.remove('red-border'));
+
+        postName.style.transition = "2s ease-in";
+        postName.style.border = "1px solid red";
+        delay(2000).then(() => postName.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+
+        if (!name) sendToast("Заголовок поста не может быть пустым!");
+        else sendToast("Минимальное количество символов в заголовке поста: 5!");
     }
 
     if (!time) {
         flag = false;
-        postTime.classList.add('red-border');
-        delay(1000).then(() => postTime.classList.remove('red-border'));
+        postTime.style.transition = "2s ease-in";
+        postTime.style.border = "1px solid red";
+        delay(2000).then(() => postTime.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+        sendToast("Текст поста не может быть пустым!");
     }
 
-    if (!descr) {
+    if (!descr || descr.length < 5) {
         flag = false;
-        postDescription.classList.add('red-border');
-        delay(1000).then(() => postDescription.classList.remove('red-border'));
+
+        postDescription.style.transition = "2s ease-in";
+        postDescription.style.border = "1px solid red";
+        delay(2000).then(() => postDescription.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+        
+        if (!descr) sendToast("Поле времени не может быть пустым!");
+        else sendToast("Минимальное количество символов в тексте поста: 5!");
     }
 
     var lastAddress = addressSelectionContainer.lastElementChild.previousElementSibling.querySelector('select');

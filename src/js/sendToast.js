@@ -4,6 +4,6 @@ export function sendToast(text) {
         text: text,
         theme: 'danger',
         autohide: true,
-        interval: 10000
+        interval: 2500
     });
 }
