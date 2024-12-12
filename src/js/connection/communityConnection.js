@@ -100,9 +100,11 @@ export async function GetCommunityPosts(id, tags, sorting, page = 1, size = 5) {
 }
 
 export async function CreatePost(id, title, description, readingTime, image, addressId, tags) {
-    var url = API_URL + `/api/community/${id}/role`;
+    var url = API_URL + `/api/community/${id}/post`;
 
-    let body = JSON.stringify({title, description, readingTime, image, addressId, tags});
+    let body;
+    if (image) body = JSON.stringify({title, description, readingTime, image, addressId, tags});
+    else body = JSON.stringify({title, description, readingTime, addressId, tags});
 
     try {
         let response = await fetch(url, {
@@ -115,10 +117,11 @@ export async function CreatePost(id, title, description, readingTime, image, add
         });
 
         if (response.ok) {
-            let id = await data.json();
+            let id = await response.json();
 
             return id;
         }
+        console.log(response.statusText)
         Relocate(response.status);
     }
     catch (e) {

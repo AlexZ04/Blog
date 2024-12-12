@@ -1,5 +1,6 @@
 import { API_URL, RESULTS } from "../constants.js";
 import { checkToken } from "../tokenCheck.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function GetPostsList(tags, author, min, max, sorting, onlyMyCommunities = false, page = 1, size = 5) {
     const params = new URLSearchParams();

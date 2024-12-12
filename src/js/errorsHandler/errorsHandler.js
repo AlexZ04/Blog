@@ -7,6 +7,5 @@ export function Relocate(code) {
         return;
     }
 
-    console.log(`/src/errorsPages/${ERRORS_PAGES.get(code)}.html`)
     window.location.href = `/src/errorsPages/${ERRORS_PAGES.get(code)}.html`;
 }
