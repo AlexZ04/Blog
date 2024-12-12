@@ -85,8 +85,5 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('header_name').innerHTML = emailVal;
             sendToastSaved("Сохранено!");
         }
-        else {
-            alert("Не-а");
-        }
     });
 });
