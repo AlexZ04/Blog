@@ -158,11 +158,20 @@ function setCommentInfo(comment, commentInfo) {
     trash.addEventListener('click', async () => {
         await commentConnection.DeleteComment(trash.dataset.id);
 
+        document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) - 1;
+
         var postInfo = await postConnection.GetPostInfo(postId);
         setComments(postInfo.comments);
     });
     
     var commentReplyField = comment.querySelector('.reply-block');
+    var commentReplyBtn = comment.querySelector('.add-reply-to-main');
+
+    if (commentReplyBtn)
+    commentReplyBtn.dataset.id = commentInfo.id;
+
+    var commentReplyInputText = commentReplyField.querySelector('.reply-comment-input');
+
     comment.querySelector('.write-reply').addEventListener('click', () => {
         if (commentReplyField.classList.contains('hidden')) {
             commentReplyField.classList.remove('hidden');
@@ -171,6 +180,15 @@ function setCommentInfo(comment, commentInfo) {
             commentReplyField.classList.add('hidden');
         }
         
+        commentReplyBtn.addEventListener('click', async () => {
+            var replyText = commentReplyInputText.value;
+            await commentConnection.AddReply(postId, replyText, commentReplyBtn.dataset.id);
+            document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) + 1;
+
+            var postInfo = await postConnection.GetPostInfo(postId);
+            setComments(postInfo.comments);
+        });
+
     });
 }
 
@@ -192,6 +210,8 @@ const sendCommetnBtn = document.getElementById('send_comment_btn');
 sendCommetnBtn.addEventListener('click', async () => {
     await commentConnection.AddReply(postId, commentTextCreating.value);
     commentTextCreating.value = "";
+
+    document.querySelector('.post-comments-amount').textContent = Number(document.querySelector('.post-comments-amount').textContent) + 1;
 
     var postInfo = await postConnection.GetPostInfo(postId);
     setComments(postInfo.comments);
