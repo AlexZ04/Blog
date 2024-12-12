@@ -1,6 +1,8 @@
 import * as usersConnection from "./connection/usersConnection.js";
 import { GENDERS } from "./constants.js";
+import { sendToast } from "./sendToast.js";
 import * as validation from "./validation.js";
+import { delay } from "./delay.js";
 
 const regBtn = document.getElementById('register_user');
 
@@ -22,21 +24,53 @@ phone.oninput = function() {
 }
 
 regBtn.addEventListener('click', async () => {
-    var inpName = name.value;
+    var inpName = name.value.trim();
     var inpBirth = birthDate.value;
     var inpGender = gender.value === "Мужской" ? GENDERS.MALE : GENDERS.FEMALE;
-    var inpPhone = phone.value;
-    var inpEmail = email.value;
-    var inpPas = password.value;
-    var inpPasRepeat = passwordAgain.value; 
+    var inpPhone = phone.value.trim();
+    var inpEmail = email.value.trim();
+    var inpPas = password.value.trim();
+    var inpPasRepeat = passwordAgain.value.trim(); 
 
-    if (!validation.validPhone(phone.value) && phone.value) {
-        alert("Номер не подходит!");
+    if (!validation.validPhone(inpPhone) && inpPhone) {
+        sendToast("Номер не подходит!");
+        return;
+    }
+
+    if (!validation.validPhone(inpEmail) && inpEmail) {
+        sendToast("Почта не подходит!");
         return;
     }
 
     if (inpPas !== inpPasRepeat) {
-        alert("Повторите пароль!");
+        sendToast("Повторите пароль!");
+        return;
+    }
+
+    if (inpName.length < 1) {
+        name.classList.add('anim');
+        delay(500).then(() => name.classList.remove('anim'));
+        return;
+    }
+    else if (inpName.length > 1000) {
+        name.style.transition = "2s ease-in";
+        name.style.border = "1px solid red";
+        delay(2000).then(() => name.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+        sendToast("Имя слишком длинное!");
+        return;
+    }
+
+    if (inpEmail.length < 1) {
+        email.classList.add('anim');
+        delay(500).then(() => email.classList.remove('anim'));
+        return;
+    }
+
+    if (inpPas.length < 6) {
+        password.style.transition = "2s ease-in";
+        password.style.border = "1px solid red";
+        delay(2000).then(() => password.style.border = "1px solid rgba(184, 191, 196, 0.4)");
+        sendToast("Пароль должен состоять минимум из 6 символов!");
         return;
     }
 
