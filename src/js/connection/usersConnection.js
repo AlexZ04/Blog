@@ -1,4 +1,5 @@
 import { RESULTS, API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function Register(fullName, password, email, birthDate, gender, phoneNumber) {
     var url = API_URL + "/api/account/register";

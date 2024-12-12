@@ -1,4 +1,5 @@
 import { API_URL } from "../constants.js";
+import { Relocate } from "../errorsHandler/errorsHandler.js";
 
 export async function GetTagList() {
     var url = API_URL + "/api/tag";
