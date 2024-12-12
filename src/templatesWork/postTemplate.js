@@ -2,6 +2,7 @@ import * as postConnection from "../js/connection/postConnection.js";
 import { RESULTS, UNAUTHORIZE_ERROR } from "../js/constants.js";
 import { checkToken } from "../js/tokenCheck.js";
 import { sendToast } from "../js/sendToast.js";
+import { delay } from "../js/delay.js";
 
 export async function getTemplate(id) {
     var template;
@@ -88,6 +89,8 @@ export function getPostTemplate(data, postTemplate, postImageTemplate, postTagsT
 
         if (!checkToken()) {
             sendToast(UNAUTHORIZE_ERROR);
+            like.classList.add('anim');
+            delay(500).then(() => like.classList.remove('anim'));
             return;
         }
 
