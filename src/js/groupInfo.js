@@ -159,7 +159,7 @@ async function setPosts() {
     }
 
     var currentPage = 1;
-    // if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
+    if (document.querySelector('.active-page')) currentPage = document.querySelector('.active-page').textContent;
 
     var postsInfo = await communityConnection.GetCommunityPosts(groupId, tagsId, sortValue, currentPage, sizeFilter.value);
     var posts = await postsInfo.posts;

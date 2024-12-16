@@ -37,7 +37,7 @@ regBtn.addEventListener('click', async () => {
         return;
     }
 
-    if (!validation.validPhone(inpEmail) && inpEmail) {
+    if (!validation.validEmail(inpEmail) && inpEmail) {
         sendToast("Почта не подходит!");
         return;
     }

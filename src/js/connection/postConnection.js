@@ -46,7 +46,10 @@ export async function GetPostsList(tags, author, min, max, sorting, onlyMyCommun
 export async function CreatePost(title, description, readingTime, image, addressId, tags) {
     var url = API_URL + `/api/post`;
 
-    var body = JSON.stringify({title, description, readingTime, image, addressId, tags});
+    var body;
+    if (image) body = JSON.stringify({title, description, readingTime, image, addressId, tags});
+    else body = JSON.stringify({title, description, readingTime, addressId, tags});
+    // var body = JSON.stringify({title, description, readingTime, image, addressId, tags});
 
     try {
         let response = await fetch(url, {
